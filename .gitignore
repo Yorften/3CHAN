@@ -1,6 +1,7 @@
 /build/
 /target/
 /bin/
+/logs/
 *.nar
 *.ear
 *.zip
