@@ -2,6 +2,7 @@
 /target/
 /bin/
 /logs/
+src/main/webapp/node_modules/
 *.nar
 *.ear
 *.zip

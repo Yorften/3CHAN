@@ -3,11 +3,11 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
 
- <section id="hero" class="hero section dark-background mt-5 pt-5">
+ <section class="">
 
-     <div class="container">
-         <div class="row gy-4">
-             <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
+     <div class="w-11/12 mx-auto">
+         <div class="flex items-center">
+             <div class="w-1/2 flex flex-col gap-3">
                  <h1>Better Solutions For Your Business</h1>
                  <p>Empowering teams with seamless project management tools, making collaboration easier, faster, and
                      more effective. Transform the way you organize now!</p>
@@ -20,7 +20,7 @@
                      </a>
                  </div>
              </div>
-             <div class="col-lg-6 order-1 order-lg-2 hero-img">
+             <div class="w-1/2">
                  <img src="${pageContext.request.contextPath}/assets/img/hero-img.png" class="img-fluid animated"
                      alt="">
              </div>
@@ -28,3 +28,4 @@
      </div>
 
  </section><!-- /Hero Section -->
+    
