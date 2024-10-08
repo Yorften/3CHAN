@@ -9,5 +9,30 @@ import java.util.Optional;
 
 
 public class CommentService {
-   
+    private final CommentRepositoryImpl commentRepository;
+
+    public CommentService() {
+        this.commentRepository = new CommentRepositoryImpl();
+    }
+
+    public Optional<Comment> getComment(long id) {
+        return commentRepository.get(id);
+    }
+
+    public List<Comment> getAllComments(long article_id) {
+        return commentRepository.getAll(article_id);
+    }
+
+    public void saveComment(Comment comment) {
+        commentRepository.save(comment);
+    }
+
+    public void updateComment(Comment comment) {
+        commentRepository.update(comment);
+    }
+
+    public void deleteComment(long id) {
+        commentRepository.delete(id);
+    }
+
 }
