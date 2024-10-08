@@ -3,6 +3,7 @@
 /bin/
 /logs/
 src/main/webapp/node_modules/
+src/main/webapp/css/tailwind/output.css
 *.nar
 *.ear
 *.zip
