@@ -1,6 +1,6 @@
 package service;
 
-import repository.implementation.CommentRepositoryImpl;
+import repository.interfaces.CommentRepository;
 
 import model.Comment;
 
@@ -9,10 +9,10 @@ import java.util.Optional;
 
 
 public class CommentService {
-    private final CommentRepositoryImpl commentRepository;
+    private final CommentRepository commentRepository;
 
-    public CommentService() {
-        this.commentRepository = new CommentRepositoryImpl();
+    public CommentService(CommentRepository commentRepository) {
+        this.commentRepository = commentRepository;
     }
 
     public Optional<Comment> getComment(long id) {
