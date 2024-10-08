@@ -18,17 +18,18 @@ CREATE TABLE IF NOT EXISTS article (
     title VARCHAR(255) NOT NULL,
     content TEXT,
     creation_date DATETIME NOT NULL,
-    publication_date DATETIME NOT NULL,
+    publication_date DATETIME,
     project_statut ENUM('DRAFT', 'PUBLISHED') NOT NULL,
     author_id bigint(20),
-    CONSTRAINT fk_article_author FOREIGN KEY (author_id) REFERENCES author(id)
+    CONSTRAINT fk_article_author FOREIGN KEY (author_id) REFERENCES author(id) ON DELETE SET NULL
 );
 
 -- Table for comments
 CREATE TABLE IF NOT EXISTS comment (
     id bigint(20) AUTO_INCREMENT PRIMARY KEY,
     content TEXT NOT NULL,
-    comment_status ENUM('APPROVED', 'REJECTED') NOT NULL,
+    creation_date DATETIME NOT NULL,
+    comment_status ENUM('APPROVED', 'REJECTED'),
     author_id bigint(20),
     article_id bigint(20),
     CONSTRAINT fk_comment_author FOREIGN KEY (author_id) REFERENCES author(id) ON DELETE SET NULL,
