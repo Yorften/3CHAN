@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -40,8 +42,14 @@ public class Author {
 
     @NotNull(message = "Role should not be null")
     @Enumerated(EnumType.STRING)
-    @Column(name = "role")
+    @Column(name = "role", nullable = false, columnDefinition = "ENUM('CONTRIBUTOR', 'EDITOR')")
     private Role role;
+
+    @OneToMany(mappedBy = "author")
+    private List<Article> articles;
+
+    @OneToMany(mappedBy = "author")
+    private List<Comment> comments;
 
     @Override
     public String toString() {

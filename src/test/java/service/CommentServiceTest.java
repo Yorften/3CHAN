@@ -63,8 +63,6 @@ public class CommentServiceTest {
     public void getCommentByIdTest() {
 
         // Arrange-Act-Assert (AAA) pattern for mocking tests
-    	System.out.print(comment.toString());
-
         when(commentRepository.get(1L)).thenReturn(Optional.of(comment));
 
         Optional<Comment> result = commentService.getComment(1L);

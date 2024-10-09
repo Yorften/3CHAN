@@ -37,11 +37,10 @@ public class Comment implements Serializable {
     private LocalDateTime creationDate;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "comment_status", nullable = true)
+    @Column(name = "comment_status", nullable = true, columnDefinition = "ENUM('APPROVED', 'REJECTED')")
     private CommentStatus commentStatus;
 
-    @JoinColumn(name = "author_id", nullable = false)
-    @NotNull(message = "Author is needed")
+    @JoinColumn(name = "author_id", nullable = true)
     @ManyToOne
     private Author author;
 

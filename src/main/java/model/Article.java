@@ -15,8 +15,6 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.ColumnDefault;
-
 import model.enums.ArticleStatus;
 
 @Entity
@@ -42,14 +40,12 @@ public class Article {
     @Column(name = "publication_date")
     private LocalDateTime publicationDate;
 
-    @ColumnDefault("'DRAFT'")
-    @NotNull(message = "Article status is null")
     @Enumerated(EnumType.STRING)
-    @Column(name = "article_status")
+    @Column(name = "article_status", nullable = false, columnDefinition = "ENUM('DRAFT', 'PUBLISHED', 'APPROVED') DEFAULT 'DRAFT'")
+    @NotNull(message = "Article status is null")
     private ArticleStatus articleStatus;
 
-    @JoinColumn(name = "author_id", nullable = false)
-    @NotNull(message = "Author is needed")
+    @JoinColumn(name = "author_id", nullable = true)
     @ManyToOne
     private Author author;
 
