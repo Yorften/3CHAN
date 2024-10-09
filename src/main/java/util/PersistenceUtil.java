@@ -27,11 +27,20 @@ public class PersistenceUtil {
                 throw new IllegalStateException("Database configuration is incomplete.");
             }
 
-            properties.put("javax.persistence.jdbc.url", url);
             properties.put("javax.persistence.jdbc.user", user);
             properties.put("javax.persistence.jdbc.password", password);
 
-            entityManagerFactory = Persistence.createEntityManagerFactory("3CHAN_PU", properties);
+            String persistenceUnitName = System.getProperty("persistence.unit.name", "3CHAN_PU");
+
+            if (persistenceUnitName.equals("test_3CHAN_PU"))
+                url = "jdbc:mysql://localhost:3306/3chan_test";
+
+            properties.put("javax.persistence.jdbc.url", url);
+
+            logger.info("DB USER : " + user);
+            logger.info("DB PASSWORD:" + password);
+
+            entityManagerFactory = Persistence.createEntityManagerFactory(persistenceUnitName, properties);
         } catch (Throwable ex) {
             logger.error("Initial EntityManagerFactory creation failed.", ex);
             throw new ExceptionInInitializerError(ex);
