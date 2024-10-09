@@ -18,15 +18,13 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.MockitoRule;
 import org.mockito.quality.Strictness;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import model.Comment;
+import model.enums.CommentStatus;
 import repository.interfaces.CommentRepository;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CommentServiceTest {
-    private static final Logger logger = LoggerFactory.getLogger(CommentServiceTest.class);
 
     @Rule
     public MockitoRule rule = MockitoJUnit.rule().strictness(Strictness.STRICT_STUBS);
@@ -44,6 +42,7 @@ public class CommentServiceTest {
         comment = new Comment();
         comment.setId(1L);
         comment.setContent("This is a test comment");
+        comment.setCommentStatus(CommentStatus.APPROVED);
 
         commentsList = new ArrayList<>();
         Comment comment1 = new Comment();
@@ -64,6 +63,7 @@ public class CommentServiceTest {
     public void getCommentByIdTest() {
 
         // Arrange-Act-Assert (AAA) pattern for mocking tests
+    	System.out.print(comment.toString());
 
         when(commentRepository.get(1L)).thenReturn(Optional.of(comment));
 
