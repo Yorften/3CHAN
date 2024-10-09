@@ -20,6 +20,8 @@
     <link rel="icon" type="image/png" sizes="16x16"
         href="${pageContext.request.contextPath}/assets/favicon/favicon-16x16.png">
     <link rel="manifest" href="${pageContext.request.contextPath}/assets/favicon/site.webmanifest">
+    
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 </head>
 
