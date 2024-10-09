@@ -80,12 +80,14 @@ public class CommentRepositoryImplTest {
 
     @After
     public void tearDown() {
+
+        entityManager = PersistenceUtil.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
+        entityManager.createQuery("DELETE FROM Comment").executeUpdate();
         entityManager.createQuery("DELETE FROM Article").executeUpdate();
         entityManager.createQuery("DELETE FROM Author").executeUpdate();
-        entityManager.createQuery("DELETE FROM Comment").executeUpdate();
 
         transaction.commit();
         entityManager.close();
