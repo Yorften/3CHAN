@@ -34,7 +34,7 @@
                         <td class="py-3 px-4 border-b">${author.firstName}</td>
                         <td class="py-3 px-4 border-b">${author.lastName}</td>
                         <td class="py-3 px-4 border-b">${author.email}</td>
-                        <td class="py-3 px-4 border-b flex space-x-2">
+                        <td class="py-3 px-4 border-b flex space-x-2  ">
                             <a href="updateAuthor?id=${author.id}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700 transition duration-200">Update</a>
                             <form action="deleteAuthor" method="post" onsubmit="return confirm('Are you sure you want to delete this author?');">
                                 <input type="hidden" name="id" value="${author.id}"/>
