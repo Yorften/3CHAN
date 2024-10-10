@@ -50,7 +50,6 @@
 
 
 
-
 <!-- Add Author Modal -->
 <div id="add-author-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-md max-h-full">
@@ -70,7 +69,7 @@
             </div>
             <!-- Modal body -->
             <div class="p-4 md:p-5">
-                <form class="space-y-4" action="addAuthor" method="post">
+                <form class="space-y-4" action="" method="post">
                     <div>
                         <label for="firstName" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">First Name</label>
                         <input type="text" name="firstName" id="firstName" class="bg-gray-800 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400" required />
@@ -83,12 +82,15 @@
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Email</label>
                         <input type="email" name="email" id="email" class="bg-gray-800 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400" placeholder="name@company.com" required />
                     </div>
+                    <div>
+                        <label for="dateOfBirth" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Date of Birth</label>
+                        <input type="date" name="dateOfBirth" id="dateOfBirth" class="bg-gray-800 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400" required />
+                    </div>
                     <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Author</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
