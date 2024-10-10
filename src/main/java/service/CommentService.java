@@ -24,10 +24,6 @@ public class CommentService {
         return commentRepository.getAll(article_id, pageNumber, commentStatus);
     }
 
-    public boolean hasNextPage(long article_id, int pageNumber, CommentStatus commentStatus) {
-        return commentRepository.hasNextPage(article_id, pageNumber, commentStatus);
-    }
-
     public int getTotalPages(long article_id, CommentStatus commentStatus) {
         return commentRepository.getTotalPages(article_id, commentStatus);
     }

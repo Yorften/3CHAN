@@ -12,8 +12,6 @@ public interface CommentRepository {
 
     List<Comment> getAll(long article_id, int pageNumber, CommentStatus commentStatus);
 
-    boolean hasNextPage(long article_id, int pageNumber, CommentStatus commentStatus);
-
     int getTotalPages(long article_id, CommentStatus commentStatus);
 
     int pendingCommentsCount(long article_id);
