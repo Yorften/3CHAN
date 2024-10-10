@@ -14,7 +14,7 @@
     <div class="overflow-x-auto">
         <table class="min-w-full bg-white border border-gray-300 mx-auto">
             <thead>
-                <tr class="bg-gray-200 text-gray-700">
+                <tr class="bg-gray-200 text-gray-700 ">
                     <th class="py-3 px-4 border-b">First Name</th>
                     <th class="py-3 px-4 border-b">Last Name</th>
                     <th class="py-3 px-4 border-b">Email</th>
@@ -23,7 +23,7 @@
             </thead>
             <tbody>
                 <c:forEach var="author" items="${authors}">
-                    <tr class="hover:bg-gray-100">
+                    <tr class="hover:bg-gray-100 text-center">
                         <td class="py-3 px-4 border-b">${author.firstName}</td>
                         <td class="py-3 px-4 border-b">${author.lastName}</td>
                         <td class="py-3 px-4 border-b">${author.email}</td>
