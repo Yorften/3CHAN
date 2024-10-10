@@ -9,7 +9,11 @@ public interface CommentRepository {
 
     Optional<Comment> get(long id);
 
-    List<Comment> getAll(long article_id);
+    List<Comment> getAll(long article_id, int pageNumber);
+
+    boolean hasNextPage(long article_id, int pageNumber);
+
+    int getTotalPages(long article_id);
 
     void save(Comment comment);
 

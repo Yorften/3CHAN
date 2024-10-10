@@ -75,15 +75,15 @@ public class CommentServiceTest {
 
     @Test
     public void getAllComentsTest() {
-        when(commentRepository.getAll(1L)).thenReturn(commentsList);
+        when(commentRepository.getAll(1L, 1)).thenReturn(commentsList);
 
-        List<Comment> result = commentService.getAllComments(1L);
+        List<Comment> result = commentService.getAllComments(1L, 1);
 
         assertEquals(2, result.size());
         assertEquals("Second test comment", result.get(0).getContent());
         assertEquals("Third test comment", result.get(1).getContent());
 
-        verify(commentRepository).getAll(1L);
+        verify(commentRepository).getAll(1L, 1);
     }
 
     @Test
