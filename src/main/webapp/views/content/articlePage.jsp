@@ -57,19 +57,23 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     </div>
     <div class="flex flex-col gap-4 w-[95%] mx-auto md:mx-0 md:w-4/5">
         <!-- Form to add comment -->
-        <div class="bg-red-500 mb-3 px-2 rounded-lg w-full">
-            <p id="addErr" class="text-white text-lg text-center"></p>
-        </div>
-        <textarea name="comment" id="comment" cols="30" rows="5"
-            class="w-full resize-none shadow-xl border-t-2 rounded-xl p-4" placeholder="Leave a comment!"></textarea>
-        <input type="hidden" name="sessionid" id="sessionid" value="" />
-        <input type="hidden" name="articleid" id="articleid" value="" />
-        <div class="self-end">
-            <button id="addComment"
-                class="px-8 py-2 bg-gray-500 border border-gray-600 text-white font-semibold rounded-lg">
-                Comment
-            </button>
-        </div>
+        <form action="" method="post">
+            <div class="bg-red-500 mb-3 px-2 rounded-lg w-full">
+                <p id="addErr" class="text-white text-lg text-center"></p>
+            </div>
+            <textarea name="content" cols="30" rows="5"
+                class="w-full resize-none shadow-xl border-t-2 rounded-xl p-4" placeholder="Leave a comment!"></textarea>
+            <input type="hidden" name="action" value="create_comment" />
+            <input type="hidden" name="articleId" value="${article.id}" />
+            <input type="hidden" name="pageNumber" value="${currentPage}" />
+            <input type="hidden" name="authorId" value="1" />
+            <div class="self-end">
+                <button type="submit" id="addComment"
+                    class="px-8 py-2 bg-gray-500 border border-gray-600 text-white font-semibold rounded-lg">
+                    Comment
+                </button>
+            </div>
+        </form>
         <!-- End of form -->
     </div>
     <div id="comments" class="flex flex-col gap-4 w-[95%] mx-auto md:mx-0 md:w-4/5 mt-6 p-2 bg-[#f5f5f5] rounded-lg">

@@ -95,6 +95,46 @@ public class ArticlePageServlet extends HttpServlet {
         dispatcher.forward(req, resp);
     }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String action = req.getParameter("action");
+        String articleIdParam = req.getParameter("article_id");
+        String pageNumberParam = req.getParameter("pageNumber");
+
+        long articleId = Long.parseLong(articleIdParam);
+        int pageNumber = Integer.parseInt(pageNumberParam);
+        switch (action) {
+            case "create_comment":
+                Comment comment = new Comment();
+
+                String authorIdParam = req.getParameter("authorId");
+
+                long authorId = Long.parseLong(authorIdParam);
+                Author author = new Author();
+                author.setId(authorId);
+
+                Article article = new Article();
+                article.setId(articleId);
+
+                String content = req.getParameter("content");
+                comment.setContent(content);
+                comment.setArticle(article);
+                comment.setAuthor(author);
+
+                commentService.saveComment(comment);
+
+                break;
+            case "delete_comment":
+
+                break;
+
+            default:
+                break;
+        }
+
+        resp.sendRedirect("article?article_id=" + articleId + "&page=" + pageNumber);
+    }
+
     protected void errorPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher = req.getRequestDispatcher("/views/404.jsp");
         dispatcher.forward(req, resp);
