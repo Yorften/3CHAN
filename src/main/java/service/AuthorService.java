@@ -11,14 +11,6 @@ public class AuthorService {
         this.authorRepository = authorRepository;
     }
 
-    /*
-        * public void addAuthor(Author author);
-        public void updateAuthor(Author author);
-        public void deleteAuthor(Long authorId);
-
-        * */
-
-
 
     public void addAuthor(Author author){
       authorRepository.addAuthor(author);
@@ -35,8 +27,6 @@ public class AuthorService {
     public List<Author> getAllAuthors(){
          return  authorRepository.getAllAuthors();
     }
-
-
 
 
 
