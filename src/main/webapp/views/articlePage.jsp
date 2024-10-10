@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" %>
 
 <%
-    request.setAttribute("title", "Article")
+    request.setAttribute("title", "Article");
     request.setAttribute("contentPage", "/views/content/articlePage.jsp"); 
 %>
 

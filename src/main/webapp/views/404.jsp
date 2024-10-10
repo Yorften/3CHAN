@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" %>
 
 <%
-    request.setAttribute("title", "Not Found")
+    request.setAttribute("title", "Not Found");
     request.setAttribute("contentPage", "/views/content/404.jsp"); 
 %>
 

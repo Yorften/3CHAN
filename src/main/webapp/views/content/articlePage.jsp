@@ -31,7 +31,6 @@
             <h1 id="title" class="text-2xl md:text-3xl font-medium">
                 ${article.title}
             </h1>
-            <p id="tag" class="text-sm p-1 rounded-xl border border-gray-500 text-gray-500"></p>
         </div>
         <div class="flex flex-col w-full shadow-xl rounded-xl border">
             <div class="w-full flex justify-between items-center">

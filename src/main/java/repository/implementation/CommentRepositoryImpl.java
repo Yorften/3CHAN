@@ -35,7 +35,7 @@ public class CommentRepositoryImpl implements CommentRepository {
         EntityManager entityManager = PersistenceUtil.getEntityManagerFactory().createEntityManager();
         try {
             TypedQuery<Comment> typedQuery = entityManager
-                    .createQuery("SELECT c FROM Comment c JOIN FETCH c.author WHERE c.article.id = :articleId", Comment.class);
+                    .createQuery("SELECT c FROM Comment c LEFT JOIN FETCH c.author WHERE c.article.id = :articleId", Comment.class);
             typedQuery.setParameter("articleId", article_id);
             typedQuery.setFirstResult(startIndex);
             typedQuery.setMaxResults(ITEMS_PER_PAGE);
