@@ -10,6 +10,12 @@
         <p class="text-center">No authors found.</p>
     </c:if>
 
+      <c:if test="${not empty successMessage}">
+             <div class="text-center text-green-600 font-bold mb-4">
+                 ${successMessage}
+             </div>
+         </c:if>
+
     <button data-modal-target="add-author-modal" data-modal-toggle="add-author-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
         Add author
     </button>
@@ -36,10 +42,13 @@
                         <td class="py-3 px-4 border-b">${author.email}</td>
                         <td class="py-3 px-4 border-b flex space-x-2  ">
                             <a href="updateAuthor?id=${author.id}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700 transition duration-200">Update</a>
-                            <form action="deleteAuthor" method="post" onsubmit="return confirm('Are you sure you want to delete this author?');">
-                                <input type="hidden" name="id" value="${author.id}"/>
-                                <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700 transition duration-200">Delete</button>
-                            </form>
+
+                          <form action="" method="post">
+                              <input type="hidden" name="id" value="${author.id}"/>
+                              <input type="hidden" name="action" value="delete"> <!-- Correction de 'delet' à 'delete' -->
+                              <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700 transition duration-200">Delete</button>
+                          </form>
+
                         </td>
                     </tr>
                 </c:forEach>
@@ -69,25 +78,38 @@
             </div>
             <!-- Modal body -->
             <div class="p-4 md:p-5">
-                <form class="space-y-4" action="" method="post">
-                    <div>
-                        <label for="firstName" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">First Name</label>
-                        <input type="text" name="firstName" id="firstName" class="bg-gray-800 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400" required />
-                    </div>
-                    <div>
-                        <label for="lastName" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Last Name</label>
-                        <input type="text" name="lastName" id="lastName" class="bg-gray-800 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400" required />
-                    </div>
-                    <div>
-                        <label for="email" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Email</label>
-                        <input type="email" name="email" id="email" class="bg-gray-800 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400" placeholder="name@company.com" required />
-                    </div>
-                    <div>
-                        <label for="dateOfBirth" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Date of Birth</label>
-                        <input type="date" name="dateOfBirth" id="dateOfBirth" class="bg-gray-800 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400" required />
-                    </div>
-                    <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Author</button>
-                </form>
+           <form  class="space-y-4" action="" method="post">
+            <input type="hidden" name="action" value="add">
+                  <div>
+                      <label for="firstName" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">First Name</label>
+                      <input type="text" name="firstName" id="firstName" class="bg-gray-800 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400" required />
+                  </div>
+
+                  <div>
+                      <label for="lastName" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Last Name</label>
+                      <input type="text" name="lastName" id="lastName" class="bg-gray-800 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400" required />
+                  </div>
+
+                  <div>
+                      <label for="email" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Email</label>
+                      <input type="email" name="email" id="email" class="bg-gray-800 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400" placeholder="name@company.com" required />
+                  </div>
+
+                  <div>
+                      <label for="dateOfBirth" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Date of Birth</label>
+                      <input type="date" name="dateOfBirth" id="dateOfBirth" class="bg-gray-800 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400" required />
+                  </div>
+
+                  <div>
+                      <label for="role" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Role</label>
+                      <select name="role" id="role" class="bg-gray-800 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400" required>
+                          <option value="CONTRIBUTOR">Contributor</option>
+                          <option value="EDITOR">Editor</option>
+                      </select>
+                  </div>
+
+                  <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Author</button>
+              </form>
             </div>
         </div>
     </div>
