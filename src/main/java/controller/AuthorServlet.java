@@ -21,11 +21,17 @@ public class AuthorServlet extends HttpServlet {
     private AuthorService authorService = new AuthorService(authorRepository);
 
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    public void displayAuteur(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Author> authors = authorService.getAllAuthors();
         request.setAttribute("authors", authors);
         request.getRequestDispatcher("/views/author.jsp").forward(request, response);
+    }
+
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       displayAuteur(request,response);
     }
 
 
@@ -52,10 +58,8 @@ public class AuthorServlet extends HttpServlet {
 
             authorService.addAuthor(newAuthor);
             request.setAttribute("successMessage", "Auteur ajouté avec succès !");
-            List<Author> authors = authorService.getAllAuthors();
-            request.setAttribute("authors", authors);
-            request.getRequestDispatcher("/views/author.jsp").forward(request, response);
-            
+           displayAuteur(request,response);
+
         }else if(action.equals("delete")){
 
             String authorIdString = request.getParameter("id");
@@ -65,13 +69,16 @@ public class AuthorServlet extends HttpServlet {
 
             request.setAttribute("successMessage", "Author deleted successfully!");
 
-            List<Author> authors = authorService.getAllAuthors();
-            request.setAttribute("authors", authors);
-            request.getRequestDispatcher("/views/author.jsp").forward(request, response);
+            displayAuteur(request,response);
 
 
         }
     }
+
+
+
+
+
 
 
 
