@@ -13,7 +13,7 @@
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
 
-  <!-- Squad MemberServlet -->
+ 
   <servlet>
     <servlet-name>ArticlePageServlet</servlet-name>
     <servlet-class>controller.ArticlePageServlet</servlet-class>
@@ -21,5 +21,14 @@
   <servlet-mapping>
     <servlet-name>ArticlePageServlet</servlet-name>
     <url-pattern>/article</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <servlet-name>ArticleServlet</servlet-name>
+    <servlet-class>controller.ArticleServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ArticleServlet</servlet-name>
+    <url-pattern>/articles</url-pattern>
   </servlet-mapping>
 </web-app>

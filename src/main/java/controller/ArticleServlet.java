@@ -4,13 +4,14 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import model.Article;
 import model.Author;
@@ -20,6 +21,7 @@ import repository.interfaces.ArticleRepository;
 import service.ArticleService;
 
 public class ArticleServlet extends HttpServlet {
+    private static final Logger logger = LoggerFactory.getLogger(ArticleServlet.class);
 
 	private final ArticleRepository articleRepository = new ArticleRepositoryImpl();
 	private final ArticleService articleService = new ArticleService(articleRepository);
@@ -28,6 +30,7 @@ public class ArticleServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		logger.info("get request recieved");
 		String action = request.getParameter("action");
 
 		listArticles(request, response);
@@ -64,7 +67,7 @@ public class ArticleServlet extends HttpServlet {
 		request.setAttribute("currentPage", page);
 		request.setAttribute("totalPages", totalPages);
 
-		request.getRequestDispatcher("views/article.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/articles.jsp").forward(request, response);
 	}
 
 	private void addArticle(HttpServletRequest request, HttpServletResponse response)
@@ -74,7 +77,7 @@ public class ArticleServlet extends HttpServlet {
 		String creationDateParam = request.getParameter("creation_date");
 		String publicationDateParam = request.getParameter("publication_date");
 		String articleStatutParam = request.getParameter("article_statut");
-		String authorIdParam = request.getParameter("auhtor_id");
+		String authorIdParam = request.getParameter("author_id");
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -100,7 +103,7 @@ public class ArticleServlet extends HttpServlet {
 		article.setAuthor(author);
 		articleService.updateArticle(article);
 
-		response.sendRedirect("article?action=list&page=1");
+		response.sendRedirect("articles?action=list&page=1");
 
 	}
 
@@ -140,7 +143,7 @@ public class ArticleServlet extends HttpServlet {
 		
 		articleService.updateArticle(article);
 		
-		response.sendRedirect("article?action=list&page=1");
+		response.sendRedirect("articles?action=list&page=1");
 		
 		
 
@@ -152,7 +155,7 @@ public class ArticleServlet extends HttpServlet {
 		 Long id = Long.parseLong(request.getParameter("id"));
 		 articleService.deleteArticle(id);
 		 
-		 response.sendRedirect("article?action=list&page=1");
+		 response.sendRedirect("articles?action=list&page=1");
 
 	}
 
