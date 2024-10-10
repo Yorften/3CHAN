@@ -16,6 +16,7 @@ import java.util.Optional;
 
 public class CommentRepositoryImpl implements CommentRepository {
     private static final Logger logger = LoggerFactory.getLogger(CommentRepositoryImpl.class);
+    private static final int ITEMS_PER_PAGE = 5;
 
     @Override
     public Optional<Comment> get(long id) {
@@ -28,16 +29,22 @@ public class CommentRepositoryImpl implements CommentRepository {
     }
 
     @Override
-    public List<Comment> getAll(long article_id) {
+    public List<Comment> getAll(long article_id, int pageNumber) {
+        int startIndex = (pageNumber - 1) * ITEMS_PER_PAGE;
+
         EntityManager entityManager = PersistenceUtil.getEntityManagerFactory().createEntityManager();
         try {
-            TypedQuery<Comment> typedQuery = entityManager.createQuery("SELECT c FROM Comment c WHERE c.article_id = :articleId", Comment.class);
+            TypedQuery<Comment> typedQuery = entityManager
+                    .createQuery("SELECT c FROM Comment c LEFT JOIN FETCH c.author WHERE c.article.id = :articleId", Comment.class);
             typedQuery.setParameter("articleId", article_id);
+            typedQuery.setFirstResult(startIndex);
+            typedQuery.setMaxResults(ITEMS_PER_PAGE);
             return typedQuery.getResultList();
         } finally {
             entityManager.close();
         }
     }
+
 
     @Override
     public void save(Comment comment) {
@@ -94,6 +101,39 @@ public class CommentRepositoryImpl implements CommentRepository {
                 transaction.rollback();
             }
             logger.error("Error deleting comment: ", e);
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    @Override
+    public boolean hasNextPage(long article_id, int pageNumber) {
+        EntityManager entityManager = PersistenceUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            TypedQuery<Long> countQuery = entityManager
+                    .createQuery("SELECT COUNT(c) FROM Comment c WHERE c.article.id = :articleId", Long.class);
+            countQuery.setParameter("articleId", article_id);
+            long totalComments = countQuery.getSingleResult();
+
+            int totalPages = (int) Math.ceil((double) totalComments / ITEMS_PER_PAGE);
+
+            return pageNumber < totalPages;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    @Override
+    public int getTotalPages(long article_id) {
+        EntityManager entityManager = PersistenceUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            TypedQuery<Long> countQuery = entityManager
+                    .createQuery("SELECT COUNT(c) FROM Comment c WHERE c.article.id = :articleId", Long.class);
+            countQuery.setParameter("articleId", article_id);
+            long totalComments = countQuery.getSingleResult();
+
+            return (int) Math.ceil((double) totalComments / ITEMS_PER_PAGE);
+
         } finally {
             entityManager.close();
         }
