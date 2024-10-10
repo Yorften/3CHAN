@@ -19,23 +19,28 @@ import model.enums.ArticleStatus;
 import repository.implementation.ArticleRepositoryImpl;
 import repository.interfaces.ArticleRepository;
 import service.ArticleService;
+import service.AuthorService;
 
 public class ArticleServlet extends HttpServlet {
-    private static final Logger logger = LoggerFactory.getLogger(ArticleServlet.class);
+	private static final Logger logger = LoggerFactory.getLogger(ArticleServlet.class);
 
 	private final ArticleRepository articleRepository = new ArticleRepositoryImpl();
 	private final ArticleService articleService = new ArticleService(articleRepository);
-
+	private final AuthorService authorService = new AuthorService();
 	@Override
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		logger.info("get request recieved");
 		String action = request.getParameter("action");
-
-		listArticles(request, response);
-
+		if ("search".equals(action)) {
+			searchArticles(request,response);
+		} else {
+			listArticles(request, response);
+		}
 	}
+
+
 
 	@Override
 
@@ -57,7 +62,7 @@ public class ArticleServlet extends HttpServlet {
 	private void listArticles(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int page = Integer.parseInt(request.getParameter("page") != null ? request.getParameter("page") : "1");
-		int pageSize = 10;
+		int pageSize = 4;
 
 		List<Article> articles = articleService.getAllArticles(page, pageSize);
 		Long totalArticles = articleService.getTotalArticleCount();
@@ -69,9 +74,34 @@ public class ArticleServlet extends HttpServlet {
 
 		request.getRequestDispatcher("/views/articles.jsp").forward(request, response);
 	}
+	
+	 
+	private void searchArticles(HttpServletRequest request, HttpServletResponse response)
+	        throws ServletException, IOException {
+	    String title = request.getParameter("title");
+	    int page = Integer.parseInt(request.getParameter("page") != null ? request.getParameter("page") : "1");
+	    int pageSize = 10;
+
+	  
+	    List<Article> articles = articleService.searchArticleByTitle(title, page, pageSize);
+	    Long totalArticles = articleService.getTotalArticleCount(); 
+	    int totalPages = (int) Math.ceil((double) totalArticles / pageSize);
+
+	    
+	    request.setAttribute("articles", articles);
+	    request.setAttribute("currentPage", page);
+	    request.setAttribute("totalPages", totalPages);
+	    request.setAttribute("searchTitle", title);
+
+	     
+	    request.getRequestDispatcher("/views/articles.jsp").forward(request, response);
+	}
+	
 
 	private void addArticle(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+//		 List<Author> authors = authorService.getAllAuthor();
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String creationDateParam = request.getParameter("creation_date");
@@ -127,35 +157,32 @@ public class ArticleServlet extends HttpServlet {
 
 		ArticleStatus statut = articleStatutParam != null ? ArticleStatus.valueOf(articleStatutParam.toUpperCase())
 				: ArticleStatus.DRAFT;
-		
+
 		Long authorId = authorIdParam != null ? Long.parseLong(authorIdParam) : null;
 		Author author = new Author();
 		author.setId(authorId);
-		
+
 		Article article = new Article();
-		
+
 		article.setTitle(title);
 		article.setContent(content);
 		article.setCreationDate(creationDate);
 		article.setPublicationDate(publicationDate);
 		article.setArticleStatus(statut);
 		article.setAuthor(author);
-		
+
 		articleService.updateArticle(article);
-		
+
 		response.sendRedirect("articles?action=list&page=1");
-		
-		
 
 	}
-	
 
 	private void deleteArticle(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		 Long id = Long.parseLong(request.getParameter("id"));
-		 articleService.deleteArticle(id);
-		 
-		 response.sendRedirect("articles?action=list&page=1");
+		Long id = Long.parseLong(request.getParameter("id"));
+		articleService.deleteArticle(id);
+
+		response.sendRedirect("articles?action=list&page=1");
 
 	}
 
