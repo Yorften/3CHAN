@@ -47,12 +47,13 @@ public class Author {
     @Column(name = "role", nullable = false, columnDefinition = "ENUM('CONTRIBUTOR', 'EDITOR')")
     private Role role;
 
-    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private List<Article> articles;
-
-    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER)
+    
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private List<Comment> comments;
 
+    // For tests since Hibernate doesn't support ON DELETE SET NULL 
     @PreRemove
     private void preRemove() {
         articles.forEach(article -> article.setAuthor(null));
@@ -69,6 +70,23 @@ public class Author {
                 ", birthDay=" + birthDay +
                 ", role=" + role +
                 '}';
+    }
+
+
+    public List<Article> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(List<Article> articles) {
+        this.articles = articles;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public long getId() {

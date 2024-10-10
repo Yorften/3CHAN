@@ -1,6 +1,8 @@
 package repository.implementation;
 
 import model.Author;
+
+import org.hibernate.annotations.QueryHints;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import repository.interfaces.AuthorRepository;
@@ -81,7 +83,10 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         EntityManager entityManager = PersistenceUtil.getEntityManagerFactory().createEntityManager();
         List<Author> authors = null;
         try {
-            authors = entityManager.createQuery("SELECT a FROM Author a", Author.class).getResultList();
+        	authors = entityManager.createQuery("SELECT distinct a FROM Author a LEFT JOIN FETCH a.comments", Author.class).setHint(QueryHints.PASS_DISTINCT_THROUGH, false).getResultList();
+        	authors = entityManager.createQuery("SELECT distinct a FROM Author a LEFT JOIN FETCH a.articles WHERE a in :authors", Author.class).setParameter("authors", authors).setHint(QueryHints.PASS_DISTINCT_THROUGH, false).getResultList();
+
+            logger.info("Authors retrieved: " + authors);
         } catch (Exception e) {
             logger.error("Error Retrieving Authors", e);
         } finally {

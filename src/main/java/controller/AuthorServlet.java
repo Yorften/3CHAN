@@ -2,6 +2,8 @@ package controller;
 
 import model.Author;
 import repository.implementation.AuthorRepositoryImpl;
+import repository.interfaces.AuthorRepository;
+import service.AuthorService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,17 +15,16 @@ import java.util.List;
 
 public class AuthorServlet extends HttpServlet {
 
-    private AuthorRepositoryImpl authorService;
-
-    public AuthorServlet() {
-        this.authorService = new AuthorRepositoryImpl();
-    }
+	private AuthorRepository authorRepository = new AuthorRepositoryImpl();
+    private AuthorService authorService = new AuthorService(authorRepository);
 
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Author> authors = authorService.getAllAuthors();
         request.setAttribute("authors", authors);
-        request.getRequestDispatcher("views/author.jsp").forward(request, response);
+
+
+        request.getRequestDispatcher("/views/author.jsp").forward(request, response);
     }
 }
