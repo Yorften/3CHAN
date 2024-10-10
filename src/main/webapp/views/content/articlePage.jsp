@@ -11,17 +11,17 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
             </div>
         </div>
         <div class="mt-14 mb-4 text-center mx-auto w-[90%] md:w-[80%]">
-            <p><b>Deleting the article is a permanent action.</b> Are you sure.</p>
+            <p class="text-xl font-medium">Are you sure you want to delete the comment ?</p>
         </div>
-        <div class="my-4">
+        <div class="my-4 flex items-center gap-3">
             <!-- Form to submit a delete request -->
-            <%--
-      <a
-        href="../blogpages/deleteArticle.php?articleId=<?= $articleId ?>"
-        class="px-8 py-2 bg-gray-500 border border-gray-600 text-white font-semibold rounded-lg"
-        >Yes</a
-      >
-      --%>
+             <form action="" method="post">
+                <input type="hidden" name="action" value="delete_comment" />
+                <input type="hidden" name="articleId" value="${article.id}" />
+                <input type="hidden" name="pageNumber" value="${currentPage}" />
+                <input type="hidden" name="commentId" value="" id="commentId">
+                <button type="submit" class="px-8 py-2 bg-gray-500 border border-gray-600 text-white font-semibold rounded-lg">Yes</button>
+             </form>
             <!-- End of form -->
             <button onclick="closePopup()"
                 class="px-8 py-2 bg-gray-500 border border-gray-600 text-white font-semibold rounded-lg">
@@ -43,9 +43,9 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
                     ${article.author.firstName} ${article.author.lastName}
                 </p>
                 <div class="p-2">
-                    <i onclick="openModal()"
+                    <i onclick=""
                         class="bx bx-edit-alt text-gray-500 text-xl border-gray-500 cursor-pointer"></i>
-                    <i onclick="openPopup()"
+                    <i onclick=""
                         class="bx bx-message-alt-x text-gray-500 text-xl border-gray-500 cursor-pointer"></i>
                 </div>
             </div>
@@ -102,9 +102,9 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
                                 </c:choose>
                             </h1>
                             <div>
-                                <i onclick="editComment(${comment.id},${article.id});"
+                                <i onclick="editComment();"
                                     class="bx bx-edit-alt text-gray-500 text-xl border-gray-500 cursor-pointer"></i>
-                                <i onclick="deleteComment(${comment.id},${article.id})"
+                                <i onclick="openPopup(${comment.id})"
                                     class="bx bx-message-alt-x text-gray-500 text-xl border-gray-500 cursor-pointer"></i>
                             </div>
                         </div>

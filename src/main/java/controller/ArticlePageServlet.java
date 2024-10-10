@@ -126,6 +126,11 @@ public class ArticlePageServlet extends HttpServlet {
                 break;
             case "delete_comment":
 
+                String commentIdParam = req.getParameter("commentId");
+
+                long commentId = Long.parseLong(commentIdParam);
+
+                commentService.deleteComment(commentId);
                 break;
 
             default:
