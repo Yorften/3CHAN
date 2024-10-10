@@ -55,20 +55,19 @@ public class AuthorServlet extends HttpServlet {
             List<Author> authors = authorService.getAllAuthors();
             request.setAttribute("authors", authors);
             request.getRequestDispatcher("/views/author.jsp").forward(request, response);
+            
         }else if(action.equals("delete")){
 
             String authorIdString = request.getParameter("id");
-            int authorId = Integer.parseInt(authorIdString); // Assurez-vous que l'ID est un entier
+            long authorId = Integer.parseInt(authorIdString);
 
-            authorService.deleteAuthor(authorId); // Appelez le service pour supprimer l'auteur
+            authorService.deleteAuthor(authorId);
 
-            // Optionnel : Ajouter un message de succès
             request.setAttribute("successMessage", "Author deleted successfully!");
 
             List<Author> authors = authorService.getAllAuthors();
             request.setAttribute("authors", authors);
             request.getRequestDispatcher("/views/author.jsp").forward(request, response);
-            break;
 
 
         }

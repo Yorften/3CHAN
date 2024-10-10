@@ -45,7 +45,7 @@
 
                           <form action="" method="post">
                               <input type="hidden" name="id" value="${author.id}"/>
-                              <input type="hidden" name="action" value="delete"> <!-- Correction de 'delet' à 'delete' -->
+                              <input type="hidden" name="action" value="delete">
                               <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700 transition duration-200">Delete</button>
                           </form>
 
