@@ -61,8 +61,8 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
             <div class="bg-red-500 mb-3 px-2 rounded-lg w-full">
                 <p id="addErr" class="text-white text-lg text-center"></p>
             </div>
-            <textarea name="content" cols="30" rows="5"
-                class="w-full resize-none shadow-xl border-t-2 rounded-xl p-4" placeholder="Leave a comment!"></textarea>
+            <textarea name="content" cols="30" rows="5" class="w-full resize-none shadow-xl border-t-2 rounded-xl p-4"
+                placeholder="Leave a comment!"></textarea>
             <input type="hidden" name="action" value="create_comment" />
             <input type="hidden" name="articleId" value="${article.id}" />
             <input type="hidden" name="pageNumber" value="${currentPage}" />
@@ -78,7 +78,8 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     </div>
     <div id="comments" class="flex flex-col gap-4 w-[95%] mx-auto md:mx-0 md:w-4/5 mt-6 p-2 bg-[#f5f5f5] rounded-lg">
         <c:if test="${pendingCommentsCount > 0}">
-            <a href="article/pending?article_id=${articleId}&page=1" class="flex flex-col w-full shadow-lg border-t-2 p-2 py-6 pl-4 bg-red-400/50">
+            <a href="article/pending?article_id=${articleId}&page=1"
+                class="flex flex-col w-full shadow-lg border-t-2 p-2 py-6 pl-4 bg-red-400/50">
                 <div class="flex w-full justify-between">
                 </div>
                 <p class="font-medium text-lg">There are ${pendingCommentsCount} pending comments awaiting approvals</p>
@@ -108,28 +109,39 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
                             </div>
                         </div>
                         <p id="p${comment.id}">${comment.content}</p>
+                        <div class="flex items-center self-start">
+                            <p class="pl-5">${comment.creationDate}</p>
+                        </div>
                     </div>
                 </c:forEach>
                 <div class="flex justify-center">
                     <ul class="flex items-center gap-2">
                         <c:if test="${currentPage > 1}">
-                            <li class="p-2 border rounded-md bg-transparent shadow hover:shadow-lg hover:bg-white transition-all duration-300"><a class="page-link"
+                            <li
+                                class="p-2 border rounded-md bg-transparent shadow hover:shadow-lg hover:bg-white transition-all duration-300">
+                                <a class="page-link"
                                     href="article?article_id=${articleId}&page=${currentPage - 1}">Previous</a></li>
                         </c:if>
                         <c:forEach begin="1" end="${totalPages}" var="i">
                             <c:choose>
                                 <c:when test="${i == currentPage}">
-                                    <li class="p-2 border rounded-md shadow-lg bg-white transition-all duration-300 ${currentPage == i ? 'active' : ''}"><a class="page-link"
-                                        href="article?article_id=${articleId}&page=${i}">${i}</a></li>
+                                    <li
+                                        class="p-2 border rounded-md shadow-lg bg-white transition-all duration-300 ${currentPage == i ? 'active' : ''}">
+                                        <a class="page-link" href="article?article_id=${articleId}&page=${i}">${i}</a>
+                                    </li>
                                 </c:when>
                                 <c:otherwise>
-                                    <li class="p-2 border rounded-md bg-transparent shadow hover:shadow-lg hover:bg-white transition-all duration-300 ${currentPage == i ? 'active' : ''}"><a class="page-link"
-                                        href="article?article_id=${articleId}&page=${i}">${i}</a></li>
+                                    <li
+                                        class="p-2 border rounded-md bg-transparent shadow hover:shadow-lg hover:bg-white transition-all duration-300 ${currentPage == i ? 'active' : ''}">
+                                        <a class="page-link" href="article?article_id=${articleId}&page=${i}">${i}</a>
+                                    </li>
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>
                         <c:if test="${currentPage < totalPages}">
-                            <li class="p-2 border rounded-md bg-transparent shadow hover:shadow-lg hover:bg-white transition-all duration-300"><a class="page-link"
+                            <li
+                                class="p-2 border rounded-md bg-transparent shadow hover:shadow-lg hover:bg-white transition-all duration-300">
+                                <a class="page-link"
                                     href="article?article_id=${articleId}&page=${currentPage + 1}">Next</a></li>
                         </c:if>
                     </ul>

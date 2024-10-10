@@ -35,21 +35,24 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
                             </h1>
                         </div>
                         <p id="p${comment.id}">${comment.content}</p>
-                        <div class="flex items-center self-end gap-3">
-                            <form action="" method="post">
-                                <input type="hidden" name="action" value="approve">
-                                <input type="hidden" name="commentId" value="${comment.id}">
-                                <input type="hidden" name="articleId" value="${articleId}">
-                                <input type="hidden" name="pageNumber" value="${currentPage}">
-                                <button type="submit" class="p-2 border-2 rounded-md bg-transparent hover:bg-white transition-all duration-300">Approve</button>
-                            </form>
-                            <form action="" method="post">
-                                <input type="hidden" name="action" value="reject">
-                                <input type="hidden" name="commentId" value="${comment.id}">
-                                <input type="hidden" name="articleId" value="${articleId}">
-                                <input type="hidden" name="pageNumber" value="${currentPage}">
-                                <button type="submit" class="p-2 border-2 rounded-md bg-transparent hover:bg-white transition-all duration-300">Reject</button>
-                            </form>
+                        <div class="flex items-center justify-between w-full">
+                            <p class="pl-5">${comment.creationDate}</p>
+                            <div class="flex items-center self-end gap-3">
+                                <form action="" method="post">
+                                    <input type="hidden" name="action" value="approve">
+                                    <input type="hidden" name="commentId" value="${comment.id}">
+                                    <input type="hidden" name="articleId" value="${articleId}">
+                                    <input type="hidden" name="pageNumber" value="${currentPage}">
+                                    <button type="submit" class="p-2 border-2 rounded-md bg-transparent hover:bg-white transition-all duration-300">Approve</button>
+                                </form>
+                                <form action="" method="post">
+                                    <input type="hidden" name="action" value="reject">
+                                    <input type="hidden" name="commentId" value="${comment.id}">
+                                    <input type="hidden" name="articleId" value="${articleId}">
+                                    <input type="hidden" name="pageNumber" value="${currentPage}">
+                                    <button type="submit" class="p-2 border-2 rounded-md bg-transparent hover:bg-white transition-all duration-300">Reject</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </c:forEach>
