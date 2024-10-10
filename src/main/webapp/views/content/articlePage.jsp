@@ -1,6 +1,6 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <%@ taglib
+prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> <%@ page
+language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <div id="popup" class="fixed w-full h-full top-0 left-0 items-center flex justify-center hidden z-50 bg-black/60">
     <div
@@ -15,8 +15,13 @@
         </div>
         <div class="my-4">
             <!-- Form to submit a delete request -->
-            <%-- <a href="../blogpages/deleteArticle.php?articleId=<?= $articleId ?>"
-                class="px-8 py-2 bg-gray-500 border border-gray-600 text-white font-semibold rounded-lg">Yes</a> --%>
+            <%--
+      <a
+        href="../blogpages/deleteArticle.php?articleId=<?= $articleId ?>"
+        class="px-8 py-2 bg-gray-500 border border-gray-600 text-white font-semibold rounded-lg"
+        >Yes</a
+      >
+      --%>
             <!-- End of form -->
             <button onclick="closePopup()"
                 class="px-8 py-2 bg-gray-500 border border-gray-600 text-white font-semibold rounded-lg">
@@ -68,13 +73,28 @@
         <!-- End of form -->
     </div>
     <div id="comments" class="flex flex-col gap-4 w-[95%] mx-auto md:mx-0 md:w-4/5 mt-6 p-2 bg-[#f5f5f5] rounded-lg">
+        <c:if test="${pendingCommentsCount > 0}">
+            <a href="article/pending?article_id=${articleId}&page=1" class="flex flex-col w-full shadow-lg border-t-2 p-2 py-6 pl-4 bg-red-400/50">
+                <div class="flex w-full justify-between">
+                </div>
+                <p class="font-medium text-lg">There are ${pendingCommentsCount} pending comments awaiting approvals</p>
+            </a>
+        </c:if>
         <c:choose>
-            <c:when test="${fn:length(comments) > 0}">
-                <c:forEach var="comment" items="${comments}">
+            <c:when test="${fn:length(approvedComments) > 0}">
+                <c:forEach var="comment" items="${approvedComments}">
                     <div id="comment${comment.id}" class="flex flex-col w-full shadow-lg border-t-2 p-2 pl-4">
                         <div class="flex w-full justify-between">
                             <h1 id="user${comment.id}" class="text-gray-500">
-                                <i class="bx bx-user text-gray-500 text-xl border-gray-500"></i>${comment.author.firstName} ${comment.author.lastName}
+                                <i class="bx bx-user text-gray-500 text-xl border-gray-500"></i>
+                                <c:choose>
+                                    <c:when test="${comment.author.firstName == null}">
+                                        Deleted User
+                                    </c:when>
+                                    <c:otherwise>
+                                        ${comment.author.firstName} ${comment.author.lastName}
+                                    </c:otherwise>
+                                </c:choose>
                             </h1>
                             <div>
                                 <i onclick="editComment(${comment.id},${article.id});"
@@ -86,6 +106,30 @@
                         <p id="p${comment.id}">${comment.content}</p>
                     </div>
                 </c:forEach>
+                <div class="flex justify-center">
+                    <ul class="flex items-center gap-2">
+                        <c:if test="${currentPage > 1}">
+                            <li class="p-2 border rounded-md bg-transparent shadow hover:shadow-lg hover:bg-white transition-all duration-300"><a class="page-link"
+                                    href="article?article_id=${articleId}&page=${currentPage - 1}">Previous</a></li>
+                        </c:if>
+                        <c:forEach begin="1" end="${totalPages}" var="i">
+                            <c:choose>
+                                <c:when test="${i == currentPage}">
+                                    <li class="p-2 border rounded-md shadow-lg bg-white transition-all duration-300 ${currentPage == i ? 'active' : ''}"><a class="page-link"
+                                        href="article?article_id=${articleId}&page=${i}">${i}</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="p-2 border rounded-md bg-transparent shadow hover:shadow-lg hover:bg-white transition-all duration-300 ${currentPage == i ? 'active' : ''}"><a class="page-link"
+                                        href="article?article_id=${articleId}&page=${i}">${i}</a></li>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                        <c:if test="${currentPage < totalPages}">
+                            <li class="p-2 border rounded-md bg-transparent shadow hover:shadow-lg hover:bg-white transition-all duration-300"><a class="page-link"
+                                    href="article?article_id=${articleId}&page=${currentPage + 1}">Next</a></li>
+                        </c:if>
+                    </ul>
+                </div>
             </c:when>
             <c:otherwise>
                 <div class="flex flex-col w-full shadow-md rounded-lg border-t-2 p-2 pl-4 text-center bg-gray-200">
