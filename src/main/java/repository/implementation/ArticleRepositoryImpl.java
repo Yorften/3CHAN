@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 import org.slf4j.Logger;
@@ -18,6 +17,12 @@ import util.PersistenceUtil;
 public class ArticleRepositoryImpl implements ArticleRepository {
 
 	private static final Logger logger = LoggerFactory.getLogger(ArticleRepositoryImpl.class);
+	
+	private static final String  LIST = "SELECT a FROM Article a";
+	private static final String  SEARCH ="SELECT a FROM Article a WHERE LOWER (:title)";
+	private static final String  COUNT ="SELECT COUNT(a) FROM Article a";
+	private static final String  GET = "SELECT a FROM Article a JOIN FETCH a.comments WHERE a.id = :id";
+	
 
 	@Override
 	public List<Article> getAllArticles(int page, int pageSize) {
@@ -25,7 +30,7 @@ public class ArticleRepositoryImpl implements ArticleRepository {
 		EntityManager entityManager = PersistenceUtil.getEntityManagerFactory().createEntityManager();
 
 		try {
-			TypedQuery<Article> query = entityManager.createQuery("SELECT a FROM Article a", Article.class);
+			TypedQuery<Article> query = entityManager.createQuery(LIST, Article.class);
 			query.setFirstResult((page - 1) * pageSize);
 			query.setMaxResults(pageSize);
 			return query.getResultList();
@@ -40,7 +45,9 @@ public class ArticleRepositoryImpl implements ArticleRepository {
 		EntityManager entityManager = PersistenceUtil.getEntityManagerFactory().createEntityManager();
 
 		try {
-			Article article = entityManager.find(Article.class, id);
+			TypedQuery<Article> query =  entityManager.createQuery(GET,Article.class);
+			query.setParameter("id",id);
+			Article article = query.getSingleResult();
 			return Optional.ofNullable(article);
 		} finally {
 			entityManager.close();
@@ -52,7 +59,7 @@ public class ArticleRepositoryImpl implements ArticleRepository {
 	public List<Article> searchArticleByTitle(String title, int page, int pageSize) {
 		EntityManager entityManager = PersistenceUtil.getEntityManagerFactory().createEntityManager();
 		try {
-			TypedQuery<Article> query = entityManager.createQuery("SELECT a FROM Article a WHERE LOWER (:title)",
+			TypedQuery<Article> query = entityManager.createQuery(SEARCH,
 					Article.class);
 			query.setParameter("title", "%" + title + "%");
 			query.setFirstResult((page - 1) * pageSize);
@@ -139,7 +146,7 @@ public class ArticleRepositoryImpl implements ArticleRepository {
 		 EntityManager entityManager = PersistenceUtil.getEntityManagerFactory().createEntityManager();
 		 
 		 try {
-			 TypedQuery<Long> query = entityManager.createQuery("SELECT COUNT(a) FROM Article a",Long.class);
+			 TypedQuery<Long> query = entityManager.createQuery(COUNT,Long.class);
 			 return query.getSingleResult();
 		 }finally {
 			 entityManager.close();
