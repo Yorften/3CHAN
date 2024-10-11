@@ -11,7 +11,7 @@ public interface ArticleRepository {
 	
 	Optional<Article> getArticleById(long id);
 	
-	List<Article> searchArticleByTitle(String title ,int page , int pageSize);
+	List<Article> searchArticleByTitle(String title);
 	
 	void addArticle(Article article);
 	
