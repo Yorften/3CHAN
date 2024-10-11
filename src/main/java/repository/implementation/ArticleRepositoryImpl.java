@@ -102,6 +102,7 @@ public class ArticleRepositoryImpl implements ArticleRepository {
 		try {
 			transaction = entityManager.getTransaction();
 			transaction.begin();
+			System.out.println(article.toString());
 			entityManager.merge(article);
 			transaction.commit();
 
