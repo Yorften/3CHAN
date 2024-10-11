@@ -28,8 +28,20 @@ public class AuthorService {
     public List<Author> getAllAuthors(){
          return  authorRepository.getAllAuthors();
     }
+    public Author getAuthorById(Long authorId){
+        return  authorRepository.getAuthorById(authorId);
+    }
 
 
+    public long countAuthors() {
+        return  authorRepository.countAuthors();
+    }
+
+
+
+    public List<Author> getAllAuthors(int pageNumber, int pageSize) {
+       return authorRepository.getAllAuthors(pageNumber,pageSize);
+    }
 
 
 }
