@@ -10,6 +10,13 @@
         <p class="text-center">No authors found.</p>
     </c:if>
 
+    <c:if test="${not empty errorMessage}">
+        <div class="text-center text-red-600 font-bold mb-4">
+            ${errorMessage}
+        </div>
+    </c:if>
+
+
       <c:if test="${not empty successMessage}">
              <div class="text-center text-green-600 font-bold mb-4">
                  ${successMessage}

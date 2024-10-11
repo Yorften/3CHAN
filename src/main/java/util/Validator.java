@@ -1,5 +1,7 @@
 package util;
 
+import model.Author;
+
 import java.util.List;
 
 public class Validator {
@@ -11,6 +13,10 @@ public class Validator {
         } else if (value.length() < 3) {
             errors.add("Please provide atleast 3 characters");
         }
+    }
+
+    private  void validationAothor(Author author){
+
     }
 
 
