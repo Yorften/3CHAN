@@ -22,7 +22,6 @@ public class JsonBodyObjTest {
                 "        \"isActive\": true\r\n" + //
                 "    },\r\n" + //
                 "    \"content\": \"This is a sample comment.\",\r\n" + //
-                "    \"tags\": [\"example\", \"test\", \"comment\"],\r\n" + //
                 "    \"likes\": 15,\r\n" + //
                 "    \"nested\": {\r\n" + //
                 "        \"key1\": \"value1\",\r\n" + //
@@ -30,6 +29,8 @@ public class JsonBodyObjTest {
                 "    }\r\n" + //
                 "}\r\n" + //
                 "");
+
+        bodyObj.setRequestBody("{\"commentId\":31,\"content\":\"This is comment 1 for article 2.\"}");
     }
 
     public boolean isTrimmed(String str) {
@@ -49,6 +50,13 @@ public class JsonBodyObjTest {
     public void getParameterTest() {
         String commentIdParam = bodyObj.getParameter("commentId");
         assertTrue(commentIdParam.equals("31"));
+    }
+
+    @Test
+    public void getNestedParameterTest() {
+        String nestedParam = bodyObj.getParameter("isActive");
+        assertTrue(nestedParam.equals("true"));
+
     }
 
 }

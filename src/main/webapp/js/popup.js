@@ -17,7 +17,7 @@ function editComment(commentId) {
     </div>
     <textarea name="comment" id="newcomment${commentId}" cols="30" rows="5" class="w-full resize-none shadow-xl border-t-2 rounded-xl p-4 mb-4" placeholder="Leave a comment!">${comment}</textarea>
     <div class="w-full flex justify-end gap-4">
-        <button onclick="applyNewComment(${commentId})" class="px-8 py-2 bg-gray-500 border border-gray-600 text-white font-semibold rounded-lg ">Apply</button>
+        <button onclick="applyNewComment(${commentId}, '${comment}')" class="px-8 py-2 bg-gray-500 border border-gray-600 text-white font-semibold rounded-lg ">Apply</button>
         <button onclick="cancelEdit(${commentId},'${comment}','${user}', '${date}')" class="px-8 py-2 bg-gray-500 border border-gray-600 text-white font-semibold rounded-lg ">Cancel</button>
     </div>
     `;
@@ -42,7 +42,7 @@ function cancelEdit(commentId, comment, user, date) {
     `;
 }
 
-async function applyNewComment(commentId) {
+async function applyNewComment(commentId, content) {
   let host = window.location.hostname;
   let port = window.location.port;
   let urlPathname = "3CHAN/comment/update";
@@ -54,7 +54,7 @@ async function applyNewComment(commentId) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ commentId: commentId }),
+    body: JSON.stringify({ commentId: commentId, content: content }),
   });
 
   if (!response.ok) {
