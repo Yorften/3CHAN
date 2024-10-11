@@ -22,9 +22,9 @@ public class ArticleService {
 		return articleRepository.getArticleById(id);
 	}
 
-	public List<Article> searchArticleByTitle(String title, int page, int pageSize) {
+	public List<Article> searchArticleByTitle(String title) {
 
-		return articleRepository.searchArticleByTitle(title, page, pageSize);
+		return articleRepository.searchArticleByTitle(title);
 	}
 
 	public void addArticle(Article article) {
@@ -43,5 +43,7 @@ public class ArticleService {
 		return articleRepository.getTotalArticleCount();
 
 	}
+
+	 
 
 }
