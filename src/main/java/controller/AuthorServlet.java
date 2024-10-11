@@ -123,7 +123,7 @@ public class AuthorServlet extends HttpServlet {
             updateAuthor.setEmail(email);
             updateAuthor.setBirthDay(birthDate);
             updateAuthor.setRole(role);
-            
+
         List<String> errors = new ArrayList<>();
         Validator validator = new Validator();
         validator.validateAuthor(updateAuthor, errors);

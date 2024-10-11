@@ -1,6 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css"  rel="stylesheet" />
+
 
 <div class="container mx-auto p-5">
     <h1 class="text-2xl font-bold mb-5 text-center">List of Authors</h1>
@@ -10,21 +12,34 @@
         <p class="text-center">No authors found.</p>
     </c:if>
 
-  <c:if test="${not empty errorMessages}">
-      <div class="text-center text-red-600 font-bold mb-4">
-          <c:forEach items="${errorMessages}" var="error">
-              <p>${error}</p>
-          </c:forEach>
-      </div>
-  </c:if>
+<!-- Afficher les messages de succès -->
+<c:if test="${not empty successMessage}">
+    <div class="flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+        </svg>
+        <span class="sr-only">Info</span>
+        <div>
+            <span class="font-medium">Success alert!</span> ${successMessage}
+        </div>
+    </div>
+</c:if>
 
-
-
-      <c:if test="${not empty successMessage}">
-             <div class="text-center text-green-600 font-bold mb-4">
-                 ${successMessage}
-             </div>
-         </c:if>
+<!-- Afficher les messages d'erreur -->
+<c:if test="${not empty errorMessages}">
+    <div class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+        </svg>
+        <span class="sr-only">Error</span>
+        <div>
+            <span class="font-medium">Error alert!</span>
+            <c:forEach items="${errorMessages}" var="error">
+                <p>${error}</p>
+            </c:forEach>
+        </div>
+    </div>
+</c:if>
 
     <button data-modal-target="add-author-modal" data-modal-toggle="add-author-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
         Add author
