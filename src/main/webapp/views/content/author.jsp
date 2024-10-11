@@ -115,7 +115,7 @@
 
                        <div>
                            <label for="update-firstName" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">First Name</label>
-                           <input type="text" name="firstName" id="update-firstName" class="bg-gray-800 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400" required />
+                           <input type="text" name="firstName" id="update-firstName" class="bg-gray-800 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400" />
                        </div>
 
                        <div>
@@ -125,17 +125,17 @@
 
                        <div>
                            <label for="update-email" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Email</label>
-                           <input type="email" name="email" id="update-email" class="bg-gray-800 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400" placeholder="name@company.com" required />
+                           <input type="email" name="email" id="update-email" class="bg-gray-800 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400" placeholder="name@company.com" />
                        </div>
                        <div>
                            <label for="update-birthDate" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Date of Birth</label>
-                           <input type="date" name="dateOfBirth" id="update-birthDate" class="bg-gray-800 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400" required />
+                           <input type="date" name="dateOfBirth" id="update-birthDate" class="bg-gray-800 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400" />
                        </div>
 
 
                        <div>
                            <label for="update-role" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Role</label>
-                           <select name="role" id="update-role" class="bg-gray-800 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400" required>
+                           <select name="role" id="update-role" class="bg-gray-800 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400">
                                <option value="CONTRIBUTOR">Contributor</option>
                                <option value="EDITOR">Editor</option>
                            </select>
