@@ -20,7 +20,7 @@
         </svg>
         <span class="sr-only">Info</span>
         <div>
-            <span class="font-medium">Success alert!</span> ${successMessage}
+            <span class="font-medium">Success</span> ${successMessage}
         </div>
     </div>
 </c:if>
@@ -33,7 +33,7 @@
         </svg>
         <span class="sr-only">Error</span>
         <div>
-            <span class="font-medium">Error alert!</span>
+            <span class="font-medium">Error</span>
             <c:forEach items="${errorMessages}" var="error">
                 <p>${error}</p>
             </c:forEach>
@@ -149,9 +149,6 @@
    </div>
 
 
-
-
-
 <!-- Add Author Modal -->
 <div id="add-author-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-md max-h-full">
@@ -175,17 +172,17 @@
             <input type="hidden" name="action" value="add">
                   <div>
                       <label for="firstName" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">First Name</label>
-                      <input type="text" name="firstName" id="firstName" class="bg-gray-800 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400" required />
+                      <input type="text" name="firstName" id="firstName" class="bg-gray-800 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"  />
                   </div>
 
                   <div>
                       <label for="lastName" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Last Name</label>
-                      <input type="text" name="lastName" id="lastName" class="bg-gray-800 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400" required />
+                      <input type="text" name="lastName" id="lastName" class="bg-gray-800 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400" />
                   </div>
 
                   <div>
                       <label for="email" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Email</label>
-                      <input type="email" name="email" id="email" class="bg-gray-800 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400" placeholder="name@company.com" required />
+                      <input type="email" name="email" id="email" class="bg-gray-800 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400" placeholder="name@company.com"/>
                   </div>
 
                   <div>
