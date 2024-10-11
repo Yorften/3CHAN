@@ -33,4 +33,14 @@
     <url-pattern>/article</url-pattern>
   </servlet-mapping>
 
+  <!-- Squad MemberServlet -->
+  <servlet>
+    <servlet-name>PendingCommentServlet</servlet-name>
+    <servlet-class>controller.PendingCommentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PendingCommentServlet</servlet-name>
+    <url-pattern>/article/pending</url-pattern>
+  </servlet-mapping>
+
 </web-app>

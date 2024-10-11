@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import model.Article;
 import model.Author;
 import model.Comment;
+import model.enums.CommentStatus;
 import repository.implementation.ArticleRepositoryImpl;
 import repository.implementation.CommentRepositoryImpl;
 import repository.interfaces.ArticleRepository;
@@ -54,7 +55,7 @@ public class ArticlePageServlet extends HttpServlet {
                 throw new IllegalArgumentException("Invalid article ID format.");
             }
 
-            int totalPages = commentService.getTotalPages(articleId);
+            int totalPages = commentService.getTotalPages(articleId, CommentStatus.APPROVED);
 
             if (pageNumber > totalPages) {
                 errorPage(req, resp);
@@ -73,10 +74,17 @@ public class ArticlePageServlet extends HttpServlet {
             article.setContent(
                     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque maiores iure officiis eum placeat distinctio, commodi laudantium dignissimos architecto debitis facere fuga assumenda suscipit quo nobis consequatur veniam error a repudiandae delectus voluptatum ducimus eveniet tempore dolores. Tempore nemo voluptas fuga, debitis temporibus hic quasi porro maiores nam molestias, impedit totam unde at consectetur ad eum voluptates quidem commodi distinctio perferendis quia facilis! Facere tempore atque, rem odit eligendi exercitationem vero impedit a fugiat. Quae fugit ut expedita laudantium ab ratione officia officiis soluta natus, eum ad. Exercitationem eveniet quam nesciunt illo id iste pariatur, fugit tenetur! Assumenda, eos nisi?");
 
-            List<Comment> comments = commentService.getAllComments(articleId, pageNumber);
+            List<Comment> approvedComments = commentService.getAllComments(articleId, pageNumber,
+                    CommentStatus.APPROVED);
+
+            int pendingCommentsCount = commentService.pendingCommentsCount(articleId);
 
             req.setAttribute("article", article);
-            req.setAttribute("comments", comments);
+            req.setAttribute("approvedComments", approvedComments);
+            req.setAttribute("articleId", articleId);
+            req.setAttribute("currentPage", pageNumber);
+            req.setAttribute("totalPages", totalPages);
+            req.setAttribute("pendingCommentsCount", pendingCommentsCount);
 
         } else {
             errorPage(req, resp);
@@ -85,6 +93,51 @@ public class ArticlePageServlet extends HttpServlet {
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("/views/articlePage.jsp");
         dispatcher.forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String action = req.getParameter("action");
+        String articleIdParam = req.getParameter("article_id");
+        String pageNumberParam = req.getParameter("pageNumber");
+
+        long articleId = Long.parseLong(articleIdParam);
+        int pageNumber = Integer.parseInt(pageNumberParam);
+        switch (action) {
+            case "create_comment":
+                Comment comment = new Comment();
+
+                String authorIdParam = req.getParameter("authorId");
+
+                long authorId = Long.parseLong(authorIdParam);
+                Author author = new Author();
+                author.setId(authorId);
+
+                Article article = new Article();
+                article.setId(articleId);
+
+                String content = req.getParameter("content");
+                comment.setContent(content);
+                comment.setArticle(article);
+                comment.setAuthor(author);
+
+                commentService.saveComment(comment);
+
+                break;
+            case "delete_comment":
+
+                String commentIdParam = req.getParameter("commentId");
+
+                long commentId = Long.parseLong(commentIdParam);
+
+                commentService.deleteComment(commentId);
+                break;
+
+            default:
+                break;
+        }
+
+        resp.sendRedirect("article?article_id=" + articleId + "&page=" + pageNumber);
     }
 
     protected void errorPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
