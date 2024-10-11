@@ -32,13 +32,15 @@
     <servlet-name>ArticlePageServlet</servlet-name>
     <url-pattern>/article</url-pattern>
   </servlet-mapping>
-  
-    <servlet>
-    <servlet-name>ArticleServlet</servlet-name>
-    <servlet-class>controller.ArticleServlet</servlet-class>
+
+  <!-- Squad MemberServlet -->
+  <servlet>
+    <servlet-name>PendingCommentServlet</servlet-name>
+    <servlet-class>controller.PendingCommentServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>ArticleServlet</servlet-name>
-    <url-pattern>/articles</url-pattern>
+    <servlet-name>PendingCommentServlet</servlet-name>
+    <url-pattern>/article/pending</url-pattern>
   </servlet-mapping>
+
 </web-app>

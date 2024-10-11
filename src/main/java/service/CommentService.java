@@ -3,6 +3,7 @@ package service;
 import repository.interfaces.CommentRepository;
 
 import model.Comment;
+import model.enums.CommentStatus;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,16 +20,16 @@ public class CommentService {
         return commentRepository.get(id);
     }
 
-    public List<Comment> getAllComments(long article_id, int pageNumber) {
-        return commentRepository.getAll(article_id, pageNumber);
+    public List<Comment> getAllComments(long article_id, int pageNumber, CommentStatus commentStatus) {
+        return commentRepository.getAll(article_id, pageNumber, commentStatus);
     }
 
-    public boolean hasNextPage(long article_id, int pageNumber) {
-        return commentRepository.hasNextPage(article_id, pageNumber);
+    public int getTotalPages(long article_id, CommentStatus commentStatus) {
+        return commentRepository.getTotalPages(article_id, commentStatus);
     }
 
-    public int getTotalPages(long article_id) {
-        return commentRepository.getTotalPages(article_id);
+    public int pendingCommentsCount(long article_id) {
+        return commentRepository.pendingCommentsCount(article_id);
     }
 
     public void saveComment(Comment comment) {
