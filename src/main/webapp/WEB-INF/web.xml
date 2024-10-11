@@ -13,7 +13,7 @@
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
 
-
+  <!-- authors page -->
   <servlet>
     <servlet-name>AuthorServlet</servlet-name>
     <servlet-class>controller.AuthorServlet</servlet-class>
@@ -23,7 +23,7 @@
     <url-pattern>/author</url-pattern>
   </servlet-mapping>
 
-  
+  <!-- article page with comments -->
   <servlet>
     <servlet-name>ArticlePageServlet</servlet-name>
     <servlet-class>controller.ArticlePageServlet</servlet-class>
@@ -32,7 +32,8 @@
     <servlet-name>ArticlePageServlet</servlet-name>
     <url-pattern>/article</url-pattern>
   </servlet-mapping>
- 
+
+  <!-- pending comments -->
   <servlet>
     <servlet-name>PendingCommentServlet</servlet-name>
     <servlet-class>controller.PendingCommentServlet</servlet-class>
@@ -42,6 +43,17 @@
     <url-pattern>/article/pending</url-pattern>
   </servlet-mapping>
 
+  <!-- update comment  -->
+  <servlet>
+    <servlet-name>CommentServlet</servlet-name>
+    <servlet-class>controller.CommentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CommentServlet</servlet-name>
+    <url-pattern>/comment/update</url-pattern>
+  </servlet-mapping>
+
+  <!-- articles list  -->
   <servlet>
     <servlet-name>ArticleServlet</servlet-name>
     <servlet-class>controller.ArticleServlet</servlet-class>
