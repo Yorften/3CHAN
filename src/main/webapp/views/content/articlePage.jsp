@@ -55,9 +55,9 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <div class="flex flex-col mt-6">
         <h1 class="text-2xl font-medium pl-4">Comments</h1>
     </div>
-    <div class="flex flex-col gap-4 w-[95%] mx-auto md:mx-0 md:w-4/5">
+    <div class="w-[95%] mx-auto md:mx-0 md:w-4/5">
         <!-- Form to add comment -->
-        <form action="" method="post">
+        <form action="" method="post" class="flex flex-col gap-4">
             <div class="bg-red-500 mb-3 px-2 rounded-lg w-full">
                 <p id="addErr" class="text-white text-lg text-center"></p>
             </div>
@@ -90,19 +90,12 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
                 <c:forEach var="comment" items="${approvedComments}">
                     <div id="comment${comment.id}" class="flex flex-col w-full shadow-lg border-t-2 p-2 pl-4">
                         <div class="flex w-full justify-between">
-                            <h1 id="user${comment.id}" class="text-gray-500">
+                            <div class="flex items-center gap-2 text-gray-500">
                                 <i class="bx bx-user text-gray-500 text-xl border-gray-500"></i>
-                                <c:choose>
-                                    <c:when test="${comment.author.firstName == null}">
-                                        Deleted User
-                                    </c:when>
-                                    <c:otherwise>
-                                        ${comment.author.firstName} ${comment.author.lastName}
-                                    </c:otherwise>
-                                </c:choose>
-                            </h1>
+                                <p id="user${comment.id}">${comment.author.firstName == null ? 'Deleted User' : comment.author.firstName}</p>
+                            </div>
                             <div>
-                                <i onclick="editComment();"
+                                <i onclick="editComment(${comment.id});"
                                     class="bx bx-edit-alt text-gray-500 text-xl border-gray-500 cursor-pointer"></i>
                                 <i onclick="openPopup(${comment.id})"
                                     class="bx bx-message-alt-x text-gray-500 text-xl border-gray-500 cursor-pointer"></i>
@@ -110,7 +103,7 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
                         </div>
                         <p id="p${comment.id}">${comment.content}</p>
                         <div class="flex items-center self-start">
-                            <p class="pl-5">${comment.creationDate}</p>
+                            <p id="date${comment.id}" class="pl-5">${comment.creationDate}</p>
                         </div>
                     </div>
                 </c:forEach>

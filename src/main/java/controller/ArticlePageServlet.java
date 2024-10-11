@@ -68,6 +68,7 @@ public class ArticlePageServlet extends HttpServlet {
             author.setLastName("Doe");
 
             Article article = new Article();
+            article.setId(1);
             article.setTitle("Test Article");
             article.setAuthor(author);
             article.setPublicationDate(LocalDateTime.now());
