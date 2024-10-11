@@ -116,24 +116,24 @@ public class AuthorServlet extends HttpServlet {
         Role role = Role.valueOf(roleString.toUpperCase());
 
 
-        Author updateAuthor = authorService.getAuthorById(id);
-
-        if (updateAuthor != null) {
+            Author updateAuthor = authorService.getAuthorById(id);
 
             updateAuthor.setFirstName(firstName);
             updateAuthor.setLastName(lastName);
             updateAuthor.setEmail(email);
             updateAuthor.setBirthDay(birthDate);
             updateAuthor.setRole(role);
+            
+        List<String> errors = new ArrayList<>();
+        Validator validator = new Validator();
+        validator.validateAuthor(updateAuthor, errors);
 
-
-            authorService.updateAuthor(updateAuthor);
-
-            request.setAttribute("successMessage", "Author updated successfully!");
+        if (errors.isEmpty()) {
+            authorService.addAuthor(updateAuthor);
+            request.setAttribute("successMessage", "Author added successfully!");
         } else {
-            request.setAttribute("errorMessage", "Author not found.");
+            request.setAttribute("errorMessages", errors);
         }
-
 
         displayAuteur(request, response);
     }
