@@ -96,4 +96,26 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     }
 
 
+    @Override
+    public Author getAuthorById(Long authorId) {
+        EntityManager entityManager = PersistenceUtil.getEntityManagerFactory().createEntityManager();
+        Author author = null;
+        try {
+            author = entityManager.find(Author.class, authorId);
+            if (author != null) {
+
+                author.getComments().size();
+                author.getArticles().size();
+            }
+            logger.info("Author retrieved with ID: " + authorId);
+        } catch (Exception e) {
+            logger.error("Error Retrieving Author with ID: " + authorId, e);
+        } finally {
+            entityManager.close();
+        }
+        return author;
+    }
+
+
+
 }

@@ -71,8 +71,42 @@ public class AuthorServlet extends HttpServlet {
 
             displayAuteur(request,response);
 
+        }else if (action != null && action.equals("update")) {
+            String idString = request.getParameter("id");
+            String firstName = request.getParameter("firstName");
+            String lastName = request.getParameter("lastName");
+            String email = request.getParameter("email");
+            String birthDateString = request.getParameter("dateOfBirth");
+            String roleString = request.getParameter("role");
 
+
+            Long id = Long.parseLong(idString);
+            LocalDate birthDate = LocalDate.parse(birthDateString);
+            Role role = Role.valueOf(roleString.toUpperCase());
+
+
+            Author updateAuthor = authorService.getAuthorById(id);
+
+            if (updateAuthor != null) {
+
+                updateAuthor.setFirstName(firstName);
+                updateAuthor.setLastName(lastName);
+                updateAuthor.setEmail(email);
+                updateAuthor.setBirthDay(birthDate);
+                updateAuthor.setRole(role);
+
+
+                authorService.updateAuthor(updateAuthor);
+
+                request.setAttribute("successMessage", "Author updated successfully!");
+            } else {
+                request.setAttribute("errorMessage", "Author not found.");
+            }
+
+
+            displayAuteur(request, response);
         }
+
     }
 
 
