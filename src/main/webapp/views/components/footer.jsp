@@ -2,13 +2,12 @@
     pageEncoding="UTF-8" %>
 
 
-<footer class="py-3 my-4">
-    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+<footer class="flex flex-col h-full min-h-[30vh] justify-between py-3 bg-black text-gray-100">
+    <div></div>
+    <ul class="flex items-center gap-5 justify-center flex-wrap">
+        <li class="nav-item"><a href="#" class="hover:underline hover:text-gray-300">Home</a></li>
+        <li class="nav-item"><a href="#" class="hover:underline hover:text-gray-300">Articles</a></li>
+        <li class="nav-item"><a href="#" class="hover:underline hover:text-gray-300">Authors</a></li>
     </ul>
-    <p class="text-center text-body-secondary">© 2024 Company, Inc</p>
+    <p class="text-center">© 2024 Company, Inc</p>
 </footer>

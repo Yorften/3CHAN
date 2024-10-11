@@ -16,7 +16,6 @@ public class AuthorRepositoryImpl implements AuthorRepository {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthorRepositoryImpl.class);
 
-
     @Override
     public void addAuthor(Author author) {
         EntityManager entityManager = PersistenceUtil.getEntityManagerFactory().createEntityManager();
@@ -35,7 +34,6 @@ public class AuthorRepositoryImpl implements AuthorRepository {
             entityManager.close();
         }
     }
-
 
     @Override
     public void updateAuthor(Author author) {
@@ -83,8 +81,13 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         EntityManager entityManager = PersistenceUtil.getEntityManagerFactory().createEntityManager();
         List<Author> authors = null;
         try {
-        	authors = entityManager.createQuery("SELECT distinct a FROM Author a LEFT JOIN FETCH a.comments", Author.class).setHint(QueryHints.PASS_DISTINCT_THROUGH, false).getResultList();
-        	authors = entityManager.createQuery("SELECT distinct a FROM Author a LEFT JOIN FETCH a.articles WHERE a in :authors", Author.class).setParameter("authors", authors).setHint(QueryHints.PASS_DISTINCT_THROUGH, false).getResultList();
+            authors = entityManager
+                    .createQuery("SELECT distinct a FROM Author a LEFT JOIN FETCH a.comments", Author.class)
+                    .setHint(QueryHints.PASS_DISTINCT_THROUGH, false).getResultList();
+            authors = entityManager
+                    .createQuery("SELECT distinct a FROM Author a LEFT JOIN FETCH a.articles WHERE a in :authors",
+                            Author.class)
+                    .setParameter("authors", authors).setHint(QueryHints.PASS_DISTINCT_THROUGH, false).getResultList();
 
             logger.info("Authors retrieved: " + authors);
         } catch (Exception e) {
@@ -94,7 +97,6 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         }
         return authors;
     }
-
 
     @Override
     public Author getAuthorById(Long authorId) {
@@ -108,6 +110,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
                 author.getArticles().size();
             }
             logger.info("Author retrieved with ID: " + authorId);
+            logger.info("Author retrieved " + author.toString());
         } catch (Exception e) {
             logger.error("Error Retrieving Author with ID: " + authorId, e);
         } finally {
@@ -116,7 +119,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         return author;
     }
 
-  @Override
+    @Override
     public long countAuthors() {
         EntityManager entityManager = PersistenceUtil.getEntityManagerFactory().createEntityManager();
         Long count = null;
@@ -135,7 +138,8 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         EntityManager entityManager = PersistenceUtil.getEntityManagerFactory().createEntityManager();
         List<Author> authors = null;
         try {
-            authors = entityManager.createQuery("SELECT DISTINCT a FROM Author a LEFT JOIN FETCH a.comments", Author.class)
+            authors = entityManager
+                    .createQuery("SELECT DISTINCT a FROM Author a LEFT JOIN FETCH a.comments", Author.class)
                     .setHint(QueryHints.PASS_DISTINCT_THROUGH, false)
                     .setFirstResult((pageNumber - 1) * pageSize) // Définir le point de départ
                     .setMaxResults(pageSize) // Nombre maximum de résultats
@@ -149,12 +153,5 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         }
         return authors;
     }
-
-
-
-
-
-
-
 
 }

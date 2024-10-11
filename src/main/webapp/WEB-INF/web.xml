@@ -20,7 +20,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>AuthorServlet</servlet-name>
-    <url-pattern>/author</url-pattern>
+    <url-pattern>/authors</url-pattern>
   </servlet-mapping>
 
   <!-- article page with comments -->

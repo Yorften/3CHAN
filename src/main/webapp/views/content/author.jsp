@@ -65,7 +65,7 @@
                        <td class="py-3 px-4 border-b">${author.firstName}</td>
                        <td class="py-3 px-4 border-b">${author.lastName}</td>
                        <td class="py-3 px-4 border-b">${author.email}</td>
-                       <td class="py-3 px-4 border-b flex space-x-2">
+                       <td class="py-3 px-4 border-b flex items-center justify-center space-x-2">
                            <!-- Update button triggers modal with data -->
                           <button
                               data-modal-target="update-author-modal"

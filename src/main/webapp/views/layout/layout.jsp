@@ -30,7 +30,7 @@
         <jsp:include page="../components/header.jsp" />
     </header>
 
-    <main id="content">
+    <main id="content" class="mt-20 mb-20">
         <c:if test="${not empty contentPage}">
             <jsp:include page="${contentPage}" />
         </c:if>
@@ -42,6 +42,7 @@
 
     <c:if test="${not empty mainJS}">
         <script src="${pageContext.request.contextPath}/js/${mainJS}"></script>
+        <script src="${pageContext.request.contextPath}/js/${mainJS2}"></script>
     </c:if>
 
 </body>

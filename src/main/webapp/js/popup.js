@@ -37,8 +37,8 @@ function cancelEdit(commentId, comment, user, date) {
       </div>
     </div>
     <p id="p${commentId}">${comment}</p>
-    <div class="flex items-center self-start">
-      <p id="date${commentId}" class="pl-5">${date}</p>
+    <div class="flex items-center self-start mt-4">
+      <p id="date${commentId}" class="pl-2">${date}</p>
     </div>
     `;
 }
@@ -62,7 +62,7 @@ async function applyNewComment(commentId, user, date) {
 
   if (!response.ok) {
     const data = await response.json();
-    
+
     let errorElement = document.getElementById("error" + commentId);
     console.log(errorElement);
     errorElement.textContent = data.error;
@@ -86,8 +86,8 @@ async function applyNewComment(commentId, user, date) {
       </div>
     </div>
     <p id="p${commentId}">${content}</p>
-    <div class="flex items-center self-start">
-      <p id="date${commentId}" class="pl-5">${date}</p>
+    <div class="flex items-center self-start mt-4">
+      <p id="date${commentId}" class="pl-2">${date}</p>
     </div>
   `;
 }

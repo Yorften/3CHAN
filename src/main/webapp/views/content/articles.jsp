@@ -10,7 +10,7 @@
 		class="flex justify-between items-center gap-4 sm:gap-4 md:w-[60%] mx-auto">
 		<h1 class="text-3xl">Theme Name</h1>
 		<button id="addArticleBtn"
-			class="px-4 py-2 bg-[#9fff30] font-semibold rounded-lg border-2 border-[#6da22f]">Add
+			class="px-4 py-2 bg-black text-white font-semibold rounded-lg border-2 ">Add
 			article +</button>
 	</div>
 
@@ -23,7 +23,7 @@
             class="flex items-center justify-center bg-transparent py-1 text-gray-600 px-4 focus:outline-none w-full" />
         
         <button type="submit"
-            class="py-2 px-4 bg-[#bdff72] text-black rounded-r border-l border-gray-200 hover:bg-gray-50 active:bg-gray-200 disabled:opacity-50 inline-flex items-center focus:outline-none">
+            class="py-2 px-4 bg-black shadow-lg text-white rounded-r border-l border-gray-200 hover:bg-gray-900 active:bg-gray-200 disabled:opacity-50 inline-flex items-center focus:outline-none">
             Search
         </button>
     </form>
@@ -84,7 +84,7 @@
             <c:when test="${not empty articles}">
                 <c:forEach var="article" items="${articles}">
                     <div class="bg-white shadow-lg shadow-gray-300 m-4 p-4 rounded-lg">
-                        <a href="#"
+                        <a href="article?article_id=${article.id}&page=1"
                             class="flex justify-between text-black font-medium hover:text-gray-500">
                             ${article.title} <span><i class="bx bx-message-dots h-8 w-8"></i></span>
                         </a>
@@ -109,7 +109,7 @@
 
 	<!-- Pagination -->
 	<div class="w-full flex flex-col items-center my-4">
-		<div class="pl-6">Showing ${currentPage} of ${totalPages}</div>
+		<div>Showing ${currentPage} of ${totalPages}</div>
 		<nav aria-label="Page navigation example">
 			<ul class="flex items-center -space-x-px h-8 text-sm">
 				<li><c:if test="${currentPage > 1}">

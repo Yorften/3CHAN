@@ -121,27 +121,20 @@
 					<div id="comment${comment.id}"
 						class="flex flex-col w-full shadow-lg border-t-2 p-2 pl-4">
 						<div class="flex w-full justify-between">
-							<h1 id="user${comment.id}" class="text-gray-500">
-								<i class="bx bx-user text-gray-500 text-xl border-gray-500"></i>
-								<c:choose>
-									<c:when test="${comment.author.firstName == null}">
-                                        Deleted User
-                                    </c:when>
-									<c:otherwise>
-                                        ${comment.author.firstName} ${comment.author.lastName}
-                                    </c:otherwise>
-								</c:choose>
-							</h1>
+							 <div class="flex items-center gap-2 text-gray-500">
+                                <i class="bx bx-user text-gray-500 text-xl border-gray-500"></i>
+                                <p id="user${comment.id}">${comment.author.firstName == null ? 'Deleted User' : comment.author.firstName}</p>
+                            </div>
 							<div>
-								<i onclick="editComment();"
+								<i onclick="editComment(${comment.id});"
 									class="bx bx-edit-alt text-gray-500 text-xl border-gray-500 cursor-pointer"></i>
 								<i onclick="openPopup(${comment.id})"
 									class="bx bx-message-alt-x text-gray-500 text-xl border-gray-500 cursor-pointer"></i>
 							</div>
 						</div>
 						<p id="p${comment.id}">${comment.content}</p>
-						<div class="flex items-center self-start">
-							<p class="pl-5">${comment.creationDate}</p>
+						<div class="flex items-center self-start mt-4">
+							<p id="date${comment.id}" class="pl-2">${comment.creationDate}</p>
 						</div>
 					</div>
 				</c:forEach>
