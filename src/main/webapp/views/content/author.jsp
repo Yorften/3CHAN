@@ -10,11 +10,14 @@
         <p class="text-center">No authors found.</p>
     </c:if>
 
-    <c:if test="${not empty errorMessage}">
-        <div class="text-center text-red-600 font-bold mb-4">
-            ${errorMessage}
-        </div>
-    </c:if>
+  <c:if test="${not empty errorMessages}">
+      <div class="text-center text-red-600 font-bold mb-4">
+          <c:forEach items="${errorMessages}" var="error">
+              <p>${error}</p>
+          </c:forEach>
+      </div>
+  </c:if>
+
 
 
       <c:if test="${not empty successMessage}">

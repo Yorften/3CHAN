@@ -5,6 +5,7 @@ import model.enums.Role;
 import repository.implementation.AuthorRepositoryImpl;
 import repository.interfaces.AuthorRepository;
 import service.AuthorService;
+import util.Validator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -52,17 +54,18 @@ public class AuthorServlet extends HttpServlet {
 
 
 
-
-
-    public void addAuthor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    public void addAuthor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String email = request.getParameter("email");
         String birthDateString = request.getParameter("dateOfBirth");
         String roleString = request.getParameter("role");
 
+
         LocalDate birthDate = LocalDate.parse(birthDateString);
         Role role = Role.valueOf(roleString.toUpperCase());
+
+
         Author newAuthor = new Author();
         newAuthor.setFirstName(firstName);
         newAuthor.setLastName(lastName);
@@ -70,9 +73,20 @@ public class AuthorServlet extends HttpServlet {
         newAuthor.setBirthDay(birthDate);
         newAuthor.setRole(role);
 
-        authorService.addAuthor(newAuthor);
-        request.setAttribute("successMessage", "Auteur ajouté avec succès !");
-        displayAuteur(request,response);
+
+        List<String> errors = new ArrayList<>();
+        Validator validator = new Validator();
+        validator.validateAuthor(newAuthor, errors);
+
+        if (errors.isEmpty()) {
+            authorService.addAuthor(newAuthor);
+            request.setAttribute("successMessage", "Author added successfully!");
+        } else {
+            request.setAttribute("errorMessages", errors);
+        }
+
+
+        displayAuteur(request, response);
     }
 
     public  void deleteAuthor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
