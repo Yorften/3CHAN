@@ -28,9 +28,7 @@
         </button>
     </form>
 </div>
-
-
-
+ 
 
 </header>
 
@@ -95,26 +93,7 @@
                                 href="article?article_id=${article.id}&page=1"
                                 class="hover:text-gray-500 font-medium">Read more</a></span>
                         </p>
-                        <div class="flex justify-between m-1">
-                            <!-- Update and Delete Actions -->
-                            <div class="flex space-x-2">
-                                <button type="button"
-                                    class="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600"
-                                    data-bs-toggle="modal" data-bs-target="#updateArticleModal"
-                                    data-id="${article.id}" data-title="${article.title}"
-                                    data-content="${article.content}"
-                                    data-authorid="${article.author.id}">Update</button>
-
-                                <form action="articles" method="post" style="display: inline;">
-                                    <input type="hidden" name="action" value="delete"> 
-                                    <input type="hidden" name="id" value="${article.id}">
-                                    <button type="submit"
-                                        class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600"
-                                        onclick="return confirm('Are you sure you want to delete this article?');">
-                                        Delete</button>
-                                </form>
-                            </div>
-                        </div>
+                     
                     </div>
                 </c:forEach>
             </c:when>
