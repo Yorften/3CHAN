@@ -93,6 +93,29 @@
        </table>
    </div>
 
+<!-- Pagination -->
+<div class="flex flex-col items-center mt-4">
+    <c:set var="totalPages" value="${(totalAuthors + pageSize - 1) / pageSize}" />
+    <div class="flex items-center space-x-2">
+        <c:if test="${pageNumber > 1}">
+            <a href="?page=${pageNumber - 1}" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded-l hover:bg-blue-600">Previous</a>
+        </c:if>
+
+        <c:forEach var="i" begin="1" end="${totalPages}">
+            <a href="?page=${i}" class="bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded hover:bg-blue-500 hover:text-white ${i == pageNumber ? 'bg-blue-500 text-white' : ''}">
+                ${i}
+            </a>
+        </c:forEach>
+
+        <c:if test="${pageNumber < totalPages}">
+            <a href="?page=${pageNumber + 1}" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded-r hover:bg-blue-600">Next</a>
+        </c:if>
+    </div>
+    <span class="mt-2 text-gray-700">Page ${pageNumber} sur ${totalPages}</span>
+</div>
+
+
+
    <!-- Update Author Modal -->
    <div id="update-author-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
        <div class="relative p-4 w-full max-w-md max-h-full">

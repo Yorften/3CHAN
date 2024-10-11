@@ -33,6 +33,15 @@ public class AuthorService {
     }
 
 
+    public long countAuthors() {
+        return  authorRepository.countAuthors();
+    }
+
+
+
+    public List<Author> getAllAuthors(int pageNumber, int pageSize) {
+       return authorRepository.getAllAuthors(pageNumber,pageSize);
+    }
 
 
 }

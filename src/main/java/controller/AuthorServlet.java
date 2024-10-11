@@ -24,11 +24,34 @@ public class AuthorServlet extends HttpServlet {
 
 
 
-    public void displayAuteur(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  /*  public void displayAuteur(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Author> authors = authorService.getAllAuthors();
         request.setAttribute("authors", authors);
         request.getRequestDispatcher("/views/author.jsp").forward(request, response);
+    }*/
+
+
+    public void displayAuteur(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int pageNumber = 1; // Numéro de page par défaut
+        int pageSize = 5; // Nombre d'auteurs par page
+
+        String page = request.getParameter("page");
+        if (page != null && !page.isEmpty()) {
+            pageNumber = Integer.parseInt(page);
+        }
+
+        List<Author> authors = authorService.getAllAuthors(pageNumber, pageSize);
+        request.setAttribute("authors", authors);
+
+        // Ajoutez également le nombre total d'auteurs pour la pagination
+        long totalAuthors = authorService.countAuthors(); // Créez une méthode pour compter les auteurs
+        request.setAttribute("totalAuthors", totalAuthors);
+        request.setAttribute("pageNumber", pageNumber);
+        request.setAttribute("pageSize", pageSize);
+
+        request.getRequestDispatcher("/views/author.jsp").forward(request, response);
     }
+
 
 
     @Override

@@ -10,5 +10,7 @@ public interface AuthorRepository {
     public void deleteAuthor(Long authorId);
     public List<Author> getAllAuthors();
     public Author getAuthorById(Long authorId);
+    public List<Author> getAllAuthors(int pageNumber, int pageSize);
+    public long countAuthors();
 
 }
