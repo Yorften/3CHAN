@@ -14,15 +14,16 @@
 
     <!-- Search bar -->
     <div class="flex items-center justify-center bg-gray-100 rounded border border-gray-200 mt-4 w-1/4 mx-auto">
-        <form action="articles?action=search" method="get" class="flex">
-            <input id="search-bar" type="text" name="title" placeholder="Search"
-                class="flex items-center align-middle justify-center bg-transparent py-1 text-gray-600 px-4 focus:outline-none w-full" />
-            <button type="submit"
-                class="py-2 px-4 bg-[#bdff72] text-black rounded-r border-l border-gray-200 hover:bg-gray-50 active:bg-gray-200 disabled:opacity-50 inline-flex items-center focus:outline-none">
-                Search
-            </button>
-        </form>
-    </div>
+    <form action="articles?action=search" method="get" class="flex">
+        <input id="search-bar" type="text" name="title" placeholder="Search"
+            class="flex items-center align-middle justify-center bg-transparent py-1 text-gray-600 px-4 focus:outline-none w-full" />
+        <button type="submit"
+            class="py-2 px-4 bg-[#bdff72] text-black rounded-r border-l border-gray-200 hover:bg-gray-50 active:bg-gray-200 disabled:opacity-50 inline-flex items-center focus:outline-none">
+            Search
+        </button>
+    </form>
+</div>
+
 </header>
 
 <!-- Add Article Modal -->

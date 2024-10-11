@@ -7,10 +7,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -45,11 +47,18 @@ public class Author {
     @Column(name = "role", nullable = false, columnDefinition = "ENUM('CONTRIBUTOR', 'EDITOR')")
     private Role role;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private List<Article> articles;
-
-    @OneToMany(mappedBy = "author")
+    
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private List<Comment> comments;
+
+    // For tests since Hibernate doesn't support ON DELETE SET NULL 
+    @PreRemove
+    private void preRemove() {
+        articles.forEach(article -> article.setAuthor(null));
+        comments.forEach(comment -> comment.setAuthor(null));
+    }
 
     @Override
     public String toString() {
@@ -61,6 +70,23 @@ public class Author {
                 ", birthDay=" + birthDay +
                 ", role=" + role +
                 '}';
+    }
+
+
+    public List<Article> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(List<Article> articles) {
+        this.articles = articles;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public long getId() {

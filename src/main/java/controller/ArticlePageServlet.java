@@ -58,6 +58,7 @@ public class ArticlePageServlet extends HttpServlet {
 
             if (pageNumber > totalPages) {
                 errorPage(req, resp);
+                return;
             }
 
             // To be deleted
@@ -79,6 +80,7 @@ public class ArticlePageServlet extends HttpServlet {
 
         } else {
             errorPage(req, resp);
+            return;
         }
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("/views/articlePage.jsp");
