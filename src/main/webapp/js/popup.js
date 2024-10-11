@@ -42,12 +42,29 @@ function cancelEdit(commentId, comment, user, date) {
     `;
 }
 
-function applyNewComment(commentId) {
+async function applyNewComment(commentId) {
   let host = window.location.hostname;
   let port = window.location.port;
-  let urlPathname = window.location.pathname;
+  let urlPathname = "3CHAN/comment/update";
 
-  let url = `${host}:${port}${urlPathname}`;
+  let url = `${window.location.protocol}//${host}:${port}/${urlPathname}`;
 
-  console.log("url : " + url);
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ commentId: commentId }),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(
+      `HTTP error! Status: ${response.status}, Message: ${errorText}`
+    );
+  }
+
+  const data = await response.json();
+
+  return data;
 }

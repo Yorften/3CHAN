@@ -23,7 +23,7 @@
     <url-pattern>/author</url-pattern>
   </servlet-mapping>
 
-  <!-- Squad MemberServlet -->
+  <!-- article page with comments -->
   <servlet>
     <servlet-name>ArticlePageServlet</servlet-name>
     <servlet-class>controller.ArticlePageServlet</servlet-class>
@@ -33,7 +33,7 @@
     <url-pattern>/article</url-pattern>
   </servlet-mapping>
 
-  <!-- Squad MemberServlet -->
+  <!-- pending comments -->
   <servlet>
     <servlet-name>PendingCommentServlet</servlet-name>
     <servlet-class>controller.PendingCommentServlet</servlet-class>
@@ -41,6 +41,16 @@
   <servlet-mapping>
     <servlet-name>PendingCommentServlet</servlet-name>
     <url-pattern>/article/pending</url-pattern>
+  </servlet-mapping>
+
+  <!-- update coment  -->
+  <servlet>
+    <servlet-name>CommentServlet</servlet-name>
+    <servlet-class>controller.CommentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CommentServlet</servlet-name>
+    <url-pattern>/comment/update</url-pattern>
   </servlet-mapping>
 
 </web-app>
