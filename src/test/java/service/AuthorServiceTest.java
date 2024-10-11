@@ -14,6 +14,8 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
+
+
 public class AuthorServiceTest {
 
     @Mock
@@ -69,6 +71,8 @@ public class AuthorServiceTest {
         verify(authorRepository, times(1)).getAuthorById(authorId);
     }
 
+
+
     @Test
     public void testCountAuthors() {
         when(authorRepository.countAuthors()).thenReturn(5L);
@@ -78,8 +82,11 @@ public class AuthorServiceTest {
         verify(authorRepository, times(1)).countAuthors();
     }
 
+
+
     @Test
     public void testGetAllAuthorsWithPagination() {
+
         int pageNumber = 1;
         int pageSize = 5;
         List<Author> authors = Arrays.asList(new Author(), new Author());
