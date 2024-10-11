@@ -17,11 +17,12 @@ public class CommentServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        
+
         JsonBodyObj requestBody = new JsonBodyObj(req);
 
-        String commentIdParam = requestBody.getParameter("commentId");
+        String commentIdParam = req.getParameter("commentId");
 
+        logger.info(commentIdParam);
     }
 
 }

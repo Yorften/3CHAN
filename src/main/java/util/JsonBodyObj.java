@@ -2,6 +2,8 @@ package util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,20 +25,28 @@ public class JsonBodyObj {
             }
         }
 
-        this.requestBody = requestBodyBuilder.toString().trim();
+        this.requestBody = requestBodyBuilder.toString().replaceAll("\\s+", " ").trim();
     }
 
-    public String getParameter(String param){
+    public String getParameter(String param) {
 
+        int searchIndex = requestBody.indexOf(param);
 
-        return "";
+        String value = requestBody.substring(searchIndex + param.length() + 3, requestBody.indexOf(",", searchIndex)).replaceAll("\"", "");
+
+        System.out.println("the value of param " + param + " is : " + value);
+
+        return value;
     }
 
+    // -------- Getter Setter ------------//
 
     public String getRequestBody() {
-      return this.requestBody;
+        return this.requestBody;
     }
+
     public void setRequestBody(String value) {
-      this.requestBody = value;
+        this.requestBody = value.replaceAll("\\s+", " ").trim();
     }
+
 }

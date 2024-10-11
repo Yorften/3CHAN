@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Planify | ${title != null ? title : 'Home'}</title>
+    <title>3CHAN | ${title != null ? title : 'Home'}</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/tailwind/output.css" />
     <link rel="apple-touch-icon" sizes="180x180"

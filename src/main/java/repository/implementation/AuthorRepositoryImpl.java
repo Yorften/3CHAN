@@ -96,4 +96,65 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     }
 
 
+    @Override
+    public Author getAuthorById(Long authorId) {
+        EntityManager entityManager = PersistenceUtil.getEntityManagerFactory().createEntityManager();
+        Author author = null;
+        try {
+            author = entityManager.find(Author.class, authorId);
+            if (author != null) {
+
+                author.getComments().size();
+                author.getArticles().size();
+            }
+            logger.info("Author retrieved with ID: " + authorId);
+        } catch (Exception e) {
+            logger.error("Error Retrieving Author with ID: " + authorId, e);
+        } finally {
+            entityManager.close();
+        }
+        return author;
+    }
+
+  @Override
+    public long countAuthors() {
+        EntityManager entityManager = PersistenceUtil.getEntityManagerFactory().createEntityManager();
+        Long count = null;
+        try {
+            count = entityManager.createQuery("SELECT COUNT(a) FROM Author a", Long.class).getSingleResult();
+        } catch (Exception e) {
+            logger.error("Error Counting Authors", e);
+        } finally {
+            entityManager.close();
+        }
+        return count != null ? count : 0;
+    }
+
+    @Override
+    public List<Author> getAllAuthors(int pageNumber, int pageSize) {
+        EntityManager entityManager = PersistenceUtil.getEntityManagerFactory().createEntityManager();
+        List<Author> authors = null;
+        try {
+            authors = entityManager.createQuery("SELECT DISTINCT a FROM Author a LEFT JOIN FETCH a.comments", Author.class)
+                    .setHint(QueryHints.PASS_DISTINCT_THROUGH, false)
+                    .setFirstResult((pageNumber - 1) * pageSize) // Définir le point de départ
+                    .setMaxResults(pageSize) // Nombre maximum de résultats
+                    .getResultList();
+
+            logger.info("Authors retrieved: " + authors);
+        } catch (Exception e) {
+            logger.error("Error Retrieving Authors", e);
+        } finally {
+            entityManager.close();
+        }
+        return authors;
+    }
+
+
+
+
+
+
+
+
 }
