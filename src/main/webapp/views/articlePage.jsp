@@ -4,7 +4,7 @@
 <%
     request.setAttribute("title", "Article");
     request.setAttribute("contentPage", "/views/content/articlePage.jsp"); 
-    request.setAttribute("mainJS", "popup.js"); 
+    request.setAttribute("mainJS", "updateArticles.js"); 
 
 %>
 
