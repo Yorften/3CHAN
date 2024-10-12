@@ -1,8 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -21,13 +20,10 @@ import model.enums.ArticleStatus;
 import model.enums.CommentStatus;
 import repository.implementation.ArticleRepositoryImpl;
 import repository.implementation.CommentRepositoryImpl;
-import repository.implementation.AuthorRepositoryImpl;
 import repository.interfaces.ArticleRepository;
 import repository.interfaces.CommentRepository;
-import repository.interfaces.AuthorRepository;
 import service.ArticleService;
 import service.CommentService;
-import service.AuthorService;
 
 public class ArticlePageServlet extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(ArticlePageServlet.class);

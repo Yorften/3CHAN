@@ -1,5 +1,7 @@
 CREATE DATABASE IF NOT EXISTS 3chan;
 
+CREATE DATABASE IF NOT EXISTS 3chan_test;
+
 USE 3chan;
 
 -- Table for authors
@@ -36,6 +38,6 @@ CREATE TABLE IF NOT EXISTS comment (
     CONSTRAINT fk_comment_article FOREIGN KEY (article_id) REFERENCES article(id) ON DELETE CASCADE
 );
 
-CREATE USER 'dbadmin'@'localhost' IDENTIFIED BY '113411';
+CREATE USER 'dbadmin'@'localhost' IDENTIFIED BY 'azerty';
 
 GRANT ALL PRIVILEGES ON 3chan.* TO 'dbadmin'@'localhost';

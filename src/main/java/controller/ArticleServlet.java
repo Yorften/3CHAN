@@ -37,9 +37,9 @@ public class ArticleServlet extends HttpServlet {
 			throws ServletException, IOException {
 		logger.info("get request recieved");
 		String action = request.getParameter("action");
-		
-			listArticles(request, response);
-		 
+
+		listArticles(request, response);
+
 	}
 
 	@Override
@@ -50,10 +50,10 @@ public class ArticleServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		if ("add".equals(action)) {
 			addArticle(request, response);
-		 
-		}else if ("search".equals(action)) {
+
+		} else if ("search".equals(action)) {
 			searchArticles(request, response);
-			 
+
 		} else {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid action");
 		}
@@ -66,12 +66,12 @@ public class ArticleServlet extends HttpServlet {
 		int pageSize = 4;
 
 		List<Article> articles = articleService.getAllArticles(page, pageSize);
-		
+
 		List<Author> authors = authorService.getAllAuthors();
 
 		Long totalArticles = articleService.getTotalArticleCount();
 		int totalPages = (int) Math.ceil((double) totalArticles / pageSize);
- 
+
 		request.setAttribute("articles", articles);
 		request.setAttribute("currentPage", page);
 		request.setAttribute("totalPages", totalPages);
@@ -81,27 +81,25 @@ public class ArticleServlet extends HttpServlet {
 	}
 
 	private void searchArticles(HttpServletRequest request, HttpServletResponse response)
-	        throws ServletException, IOException {
-	    String title = request.getParameter("title");
+			throws ServletException, IOException {
+		String title = request.getParameter("title");
 
-	    // Fetch all articles matching the search title
-	    List<Article> articles = articleService.searchArticleByTitle(title);
+		// Fetch all articles matching the search title
+		List<Article> articles = articleService.searchArticleByTitle(title);
+		List<Author> authors = authorService.getAllAuthors();
 
-	    // You can also set the title for display if needed
-	    request.setAttribute("articles", articles);
-	    request.setAttribute("searchTitle", title);
-	    
-	    // Directly forward to the JSP view
-	    request.getRequestDispatcher("/views/articles.jsp").forward(request, response);
+		// You can also set the title for display if needed
+		request.setAttribute("articles", articles);
+		request.setAttribute("searchTitle", title);
+		request.setAttribute("authors", authors);
+
+		// Directly forward to the JSP view
+		request.getRequestDispatcher("/views/articles.jsp").forward(request, response);
 	}
-
-
 
 	private void addArticle(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		
- 
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String creationDateParam = request.getParameter("creation_date");
@@ -142,7 +140,5 @@ public class ArticleServlet extends HttpServlet {
 
 		response.sendRedirect("articles?action=list&page=1");
 	}
-
-	
 
 }

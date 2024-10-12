@@ -11,11 +11,14 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
         </div>
     </c:if>
 
+    <a href="${pageContext.request.contextPath}/article?article_id=2&page=1"
+        class="text-xl hover:underline font-medium">Return Back</a>
+
 
     <div class="flex flex-col mt-6">
         <h1 class="text-3xl font-medium pl-4">Pending Comments</h1>
     </div>
-  
+
     <div id="comments" class="flex flex-col gap-4 w-[95%] mx-auto md:mx-0 mt-6 p-2 bg-[#f5f5f5] rounded-lg">
         <c:choose>
             <c:when test="${fn:length(pendingComments) > 0}">
@@ -43,14 +46,16 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
                                     <input type="hidden" name="commentId" value="${comment.id}">
                                     <input type="hidden" name="articleId" value="${articleId}">
                                     <input type="hidden" name="pageNumber" value="${currentPage}">
-                                    <button type="submit" class="p-2 border-2 rounded-md bg-transparent hover:bg-white transition-all duration-300">Approve</button>
+                                    <button type="submit"
+                                        class="p-2 border-2 rounded-md bg-transparent hover:bg-white transition-all duration-300">Approve</button>
                                 </form>
                                 <form action="" method="post">
                                     <input type="hidden" name="action" value="reject">
                                     <input type="hidden" name="commentId" value="${comment.id}">
                                     <input type="hidden" name="articleId" value="${articleId}">
                                     <input type="hidden" name="pageNumber" value="${currentPage}">
-                                    <button type="submit" class="p-2 border-2 rounded-md bg-transparent hover:bg-white transition-all duration-300">Reject</button>
+                                    <button type="submit"
+                                        class="p-2 border-2 rounded-md bg-transparent hover:bg-white transition-all duration-300">Reject</button>
                                 </form>
                             </div>
                         </div>
@@ -59,24 +64,30 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
                 <div class="flex justify-center">
                     <ul class="flex items-center gap-2">
                         <c:if test="${currentPage > 1}">
-                            <li class="p-2 border rounded-md bg-transparent shadow hover:shadow-lg hover:bg-white transition-all duration-300"><a class="page-link"
-                                    href="article/pending?article_id=${articleId}&page=${currentPage - 1}">Previous</a></li>
+                            <li
+                                class="border rounded-md py-2 bg-transparent shadow hover:shadow-lg hover:bg-white transition-all duration-300">
+                                <a class="m-2"
+                                    href="pending?article_id=${articleId}&page=${currentPage - 1}">Previous</a></li>
                         </c:if>
                         <c:forEach begin="1" end="${totalPages}" var="i">
                             <c:choose>
                                 <c:when test="${i == currentPage}">
-                                    <li class="p-2 border rounded-md shadow-lg bg-white transition-all duration-300 ${currentPage == i ? 'active' : ''}"><a class="page-link"
-                                        href="article/pending?article_id=${articleId}&page=${i}">${i}</a></li>
+                                    <li
+                                        class="border rounded-md py-2 shadow-lg bg-white transition-all duration-300 ${currentPage == i ? 'active' : ''}">
+                                        <a class="m-2" href="pending?article_id=${articleId}&page=${i}">${i}</a></li>
                                 </c:when>
                                 <c:otherwise>
-                                    <li class="p-2 border rounded-md bg-transparent shadow hover:shadow-lg hover:bg-white transition-all duration-300 ${currentPage == i ? 'active' : ''}"><a class="page-link"
-                                        href="article/pending?article_id=${articleId}&page=${i}">${i}</a></li>
+                                    <li
+                                        class="border rounded-md py-2 bg-transparent shadow hover:shadow-lg hover:bg-white transition-all duration-300 ${currentPage == i ? 'active' : ''}">
+                                        <a class="m-2" href="pending?article_id=${articleId}&page=${i}">${i}</a></li>
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>
                         <c:if test="${currentPage < totalPages}">
-                            <li class="p-2 border rounded-md bg-transparent shadow hover:shadow-lg hover:bg-white transition-all duration-300"><a class="page-link"
-                                    href="article/pending?article_id=${articleId}&page=${currentPage + 1}">Next</a></li>
+                            <li
+                                class="border rounded-md py-2 bg-transparent shadow hover:shadow-lg hover:bg-white transition-all duration-300">
+                                <a class="m-2"
+                                    href="pending?article_id=${articleId}&page=${currentPage + 1}">Next</a></li>
                         </c:if>
                     </ul>
                 </div>

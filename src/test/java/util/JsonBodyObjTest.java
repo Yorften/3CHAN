@@ -13,24 +13,8 @@ public class JsonBodyObjTest {
     public void setUp() {
         bodyObj = new JsonBodyObj();
 
-        bodyObj.setRequestBody("{\r\n" + //
-                "    \"commentId\": 31,\r\n" + //
-                "    \"author\": {\r\n" + //
-                "        \"firstName\": \"John\",\r\n" + //
-                "        \"lastName\": \"Doe\",\r\n" + //
-                "        \"age\": 30,\r\n" + //
-                "        \"isActive\": true\r\n" + //
-                "    },\r\n" + //
-                "    \"content\": \"This is a sample comment.\",\r\n" + //
-                "    \"likes\": 15,\r\n" + //
-                "    \"nested\": {\r\n" + //
-                "        \"key1\": \"value1\",\r\n" + //
-                "        \"key2\": \"value2\"\r\n" + //
-                "    }\r\n" + //
-                "}\r\n" + //
-                "");
-
-        bodyObj.setRequestBody("{\"commentId\":31,\"content\":\"This is comment 1 for article 2.\"}");
+        bodyObj.setRequestBody(
+                "{\"commentId\":31,\"author\":{\"firstName\":\"John\",\"lastName\":\"Doe\",\"age\":30,\"isActive\":true},\"content\":\"This is a sample comment.\",\"likes\":15,\"nested\":{\"key1\":\"value1\",\"key2\":\"value2\"}}");
     }
 
     public boolean isTrimmed(String str) {
@@ -48,14 +32,14 @@ public class JsonBodyObjTest {
 
     @Test
     public void getParameterTest() {
-        String commentIdParam = bodyObj.getParameter("commentId");
-        assertTrue(commentIdParam.equals("31"));
+        String commentIdParam = bodyObj.getParameter("content");
+        assertTrue(commentIdParam.equals("This is a sample comment."));
     }
 
     @Test
     public void getNestedParameterTest() {
-        String nestedParam = bodyObj.getParameter("isActive");
-        assertTrue(nestedParam.equals("true"));
+        String nestedParam = bodyObj.getParameter("nested.key2");
+        assertTrue(nestedParam.equals("value2"));
 
     }
 

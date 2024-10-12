@@ -115,7 +115,26 @@ public class JsonBodyObj {
 
         int searchIndex = requestBody.indexOf("\"" + param + "\"");
         if (searchIndex != -1) {
+            int braceCountLeft = 0;
+            int braceCountRight = 0;
+
             logger.info("request body : " + requestBody);
+
+            for (int i = searchIndex; i < requestBody.length(); i++) {
+                if (requestBody.charAt(i) == '{') {
+                    braceCountLeft++;
+                } else if (requestBody.charAt(i) == '}') {
+                    braceCountRight++;
+                }
+            }
+
+            if (braceCountRight != braceCountLeft + 1) {
+                logger.error(
+                        "The parameter \"" + param + "\" is a parent parameter and refers to a nested object.");
+                throw new IllegalArgumentException(
+                        "The parameter \"" + param + "\" is a parent parameter and refers to a nested object.");
+            }
+
             value = requestBody
                     .substring(searchIndex + param.length() + 3, requestBody.indexOf("}", searchIndex))
                     .replaceAll("\"", "");
@@ -126,13 +145,7 @@ public class JsonBodyObj {
                         .replaceAll("\"", "");
             }
 
-            if (value.contains("{")) {
-                logger.error("The parameter \"" + param + "\" is a parent parameter and refers to a nested object.");
-                throw new IllegalArgumentException(
-                        "The parameter \"" + param + "\" is a parent parameter and refers to a nested object.");
-            }
-
-            logger.info("value of key " + param + "is : " + value);
+            logger.info("value of key " + param + " is : " + value);
 
         } else {
             logger.error("Parameter \"" + param + "\" not found.");
