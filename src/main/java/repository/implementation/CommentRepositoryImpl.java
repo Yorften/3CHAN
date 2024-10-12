@@ -52,8 +52,8 @@ public class CommentRepositoryImpl implements CommentRepository {
             typedQuery.setParameter("articleId", article_id);
             typedQuery.setFirstResult(startIndex);
             typedQuery.setMaxResults(ITEMS_PER_PAGE);
+            
             List<Comment> comments = typedQuery.getResultList();
-            logger.info("Comments fetched : " + comments);
 
             return comments;
         } finally {

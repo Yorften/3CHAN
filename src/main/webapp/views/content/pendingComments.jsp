@@ -3,7 +3,7 @@ prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> <%@ page
 language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 
-<div class="w-[95%] mx-auto flex flex-col gap-2">
+<div class="w-[95%] min-h-[45vh] h-full mx-auto flex flex-col gap-2">
 
     <c:if test="${message != null}">
         <div class="w-full shadow-lg rounded-sm border-t-2 p-2 py-6 pl-4 bg-red-400/50">

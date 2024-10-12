@@ -18,11 +18,10 @@ public class ArticleRepositoryImpl implements ArticleRepository {
 
 	private static final Logger logger = LoggerFactory.getLogger(ArticleRepositoryImpl.class);
 
-	private static final String LIST = "SELECT a FROM Article a";
-	private static final String SEARCH = "SELECT a FROM Article a WHERE a.title LIKE :title";
+	private static final String LIST = "SELECT a FROM Article a LEFT JOIN FETCH a.comments";
+	private static final String SEARCH = "SELECT DISTINCT a FROM Article a LEFT JOIN FETCH a.comments WHERE a.title LIKE :title";
 	private static final String COUNT = "SELECT COUNT(a) FROM Article a";
 	private static final String GET = "SELECT a FROM Article a JOIN FETCH a.comments WHERE a.id = :id";
- 
 
 	@Override
 	public List<Article> getAllArticles(int page, int pageSize) {
@@ -33,7 +32,10 @@ public class ArticleRepositoryImpl implements ArticleRepository {
 			TypedQuery<Article> query = entityManager.createQuery(LIST, Article.class);
 			query.setFirstResult((page - 1) * pageSize);
 			query.setMaxResults(pageSize);
-			return query.getResultList();
+
+			List<Article> articles = query.getResultList();
+
+			return articles;
 		} finally {
 			entityManager.close();
 		}
@@ -56,20 +58,16 @@ public class ArticleRepositoryImpl implements ArticleRepository {
 
 	@Override
 	public List<Article> searchArticleByTitle(String title) {
-	    EntityManager entityManager = PersistenceUtil.getEntityManagerFactory().createEntityManager();
-	    try {
-	        TypedQuery<Article> query = entityManager.createQuery(SEARCH, Article.class);
-	        query.setParameter("title", "%" + title + "%");
-	        
-	       
-	        return query.getResultList();
-	    } finally {
-	        entityManager.close();
-	    }
+		EntityManager entityManager = PersistenceUtil.getEntityManagerFactory().createEntityManager();
+		try {
+			TypedQuery<Article> query = entityManager.createQuery(SEARCH, Article.class);
+			query.setParameter("title", "%" + title + "%");
+
+			return query.getResultList();
+		} finally {
+			entityManager.close();
+		}
 	}
-
-
-
 
 	@Override
 
@@ -151,8 +149,5 @@ public class ArticleRepositoryImpl implements ArticleRepository {
 			entityManager.close();
 		}
 	}
-	
- 
-
 
 }

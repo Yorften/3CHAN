@@ -73,6 +73,7 @@ public class Article {
                 ", publicationDate=" + publicationDate +
                 ", articleStatus=" + articleStatus +
                 ", author=" + author +
+                ", comments=" + comments +
                 '}';
     }
 
@@ -123,5 +124,12 @@ public class Article {
     }
     public void setAuthor(Author value) {
       this.author = value;
+    }
+
+    public List<Comment> getComments() {
+      return this.comments;
+    }
+    public void setComments(List<Comment> value) {
+      this.comments = value;
     }
 }

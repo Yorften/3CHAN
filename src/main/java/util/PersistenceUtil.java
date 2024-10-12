@@ -37,9 +37,6 @@ public class PersistenceUtil {
 
             properties.put("javax.persistence.jdbc.url", url);
 
-            logger.info("DB USER : " + user);
-            logger.info("DB PASSWORD:" + password);
-
             entityManagerFactory = Persistence.createEntityManagerFactory(persistenceUnitName, properties);
         } catch (Throwable ex) {
             logger.error("Initial EntityManagerFactory creation failed.", ex);

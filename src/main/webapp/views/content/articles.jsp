@@ -86,7 +86,7 @@
                     <div class="bg-white shadow-lg shadow-gray-300 m-4 p-4 rounded-lg">
                         <a href="article?article_id=${article.id}&page=1"
                             class="flex justify-between text-black font-medium hover:text-gray-500">
-                            ${article.title} <span><i class="bx bx-message-dots h-8 w-8"></i></span>
+                            ${article.title} <span class="flex items-center gap-2"><p>${article.comments.size()}</p><i class="bx bx-message-dots"></i></span>
                         </a>
                         <p class="text-gray-800 m-2">
                             ${fn:substring(article.content, 0, 200)}... <span><a
