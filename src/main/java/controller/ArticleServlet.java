@@ -68,7 +68,7 @@ public class ArticleServlet extends HttpServlet {
 		List<Article> articles = articleService.getAllArticles(page, pageSize);
 		
 		List<Author> authors = authorService.getAllAuthors();
-		authors.forEach(author -> logger.info(author.toString()));
+
 		Long totalArticles = articleService.getTotalArticleCount();
 		int totalPages = (int) Math.ceil((double) totalArticles / pageSize);
  

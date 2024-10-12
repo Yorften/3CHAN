@@ -152,7 +152,7 @@ public class AuthorServlet extends HttpServlet {
         validator.validateAuthor(updateAuthor, errors);
 
         if (errors.isEmpty()) {
-            authorService.addAuthor(updateAuthor);
+            authorService.updateAuthor(updateAuthor);
             request.setAttribute("successMessage", "Author added successfully!");
         } else {
             request.setAttribute("errorMessages", errors);

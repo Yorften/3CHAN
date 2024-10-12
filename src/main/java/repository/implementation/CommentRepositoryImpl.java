@@ -48,10 +48,14 @@ public class CommentRepositoryImpl implements CommentRepository {
                                 Comment.class);
                 typedQuery.setParameter("commentStatus", commentStatus);
             }
+
             typedQuery.setParameter("articleId", article_id);
             typedQuery.setFirstResult(startIndex);
             typedQuery.setMaxResults(ITEMS_PER_PAGE);
-            return typedQuery.getResultList();
+            List<Comment> comments = typedQuery.getResultList();
+            logger.info("Comments fetched : " + comments);
+
+            return comments;
         } finally {
             entityManager.close();
         }

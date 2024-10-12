@@ -145,7 +145,6 @@ public class AuthorRepositoryImpl implements AuthorRepository {
                     .setMaxResults(pageSize) // Nombre maximum de résultats
                     .getResultList();
 
-            logger.info("Authors retrieved: " + authors);
         } catch (Exception e) {
             logger.error("Error Retrieving Authors", e);
         } finally {
