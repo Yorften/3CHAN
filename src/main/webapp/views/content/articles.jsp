@@ -88,10 +88,12 @@
                             class="flex justify-between text-black font-medium hover:text-gray-500">
                             ${article.title} <span class="flex items-center gap-2"><p>${article.comments.size()}</p><i class="bx bx-message-dots"></i></span>
                         </a>
-                        <p class="text-gray-800 m-2">
+                       <p class="text-gray-800  m-2 font-medium"> <i class='bx bxs-user-circle' >${article.author.firstName}
+							${article.author.lastName}</i>   </p>
+                        <p class="text-gray-800 m-2  ">
                             ${fn:substring(article.content, 0, 200)}... <span><a
                                 href="article?article_id=${article.id}&page=1"
-                                class="hover:text-gray-500 font-medium">Read more</a></span>
+                                class="hover:text-red-500 font-medium">Read more</a></span>
                         </p>
                      
                     </div>
