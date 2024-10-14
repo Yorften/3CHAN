@@ -130,9 +130,9 @@ public class JsonBodyObj {
 
             if (braceCountRight != braceCountLeft + 1) {
                 logger.error(
-                        "The parameter \"" + param + "\" is a parent parameter and refers to a nested object.");
+                        "The parameter \"" + param + "\" is a child parameter and is a part of a nested object.");
                 throw new IllegalArgumentException(
-                        "The parameter \"" + param + "\" is a parent parameter and refers to a nested object.");
+                        "The parameter \"" + param + "\" is a child parameter and is a part of a nested object.");
             }
 
             value = requestBody

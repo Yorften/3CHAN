@@ -53,6 +53,9 @@ public class Author {
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private List<Comment> comments;
 
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    private List<AuthorComment> likes;
+
     // For tests since Hibernate doesn't support ON DELETE SET NULL 
     @PreRemove
     private void preRemove() {
@@ -135,5 +138,12 @@ public class Author {
 
     public void setRole(Role value) {
         this.role = value;
+    }
+
+    public List<AuthorComment> getLikes() {
+      return this.likes;
+    }
+    public void setLikes(List<AuthorComment> value) {
+      this.likes = value;
     }
 }

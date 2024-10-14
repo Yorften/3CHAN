@@ -124,8 +124,28 @@
                             </div>
                         </div>
                         <p id="p${comment.id}">${comment.content}</p>
-                        <div class="flex items-center self-start mt-4">
-                            <p id="date${comment.id}" class="pl-2">${comment.creationDate}</p>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center self-start mt-4">
+                                <p id="date${comment.id}" class="pl-2">${comment.creationDate}</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                            <p>${comment.likes.size()}</p>
+                                <c:set var="userLiked" value="false" />
+                                <c:forEach var="like" items="${comment.likes}">
+                                    <c:if test="${like.author.id == logged_user.id}">
+                                        <c:set var="userLiked" value="true" />
+                                    </c:if>
+                                </c:forEach>
+                                <c:choose>
+                                    <c:when test="${userLiked}">
+                                        <i class='bx bx-like cursor-pointer fill-current text-blue-600 hover:text-gray-300 w-10 h-10'></i>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <i class='bx bx-like cursor-pointer fill-current text-gray-300 hover:text-blue-600 w-10 h-10'></i>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
                         </div>
                     </div>
                 </c:forEach>

@@ -11,7 +11,7 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
         </div>
     </c:if>
 
-    <a href="${pageContext.request.contextPath}/article?article_id=2&page=1"
+    <a href="${pageContext.request.contextPath}/article?article_id=${articleId}&page=${currentPage}"
         class="text-xl hover:underline font-medium">Return Back</a>
 
 

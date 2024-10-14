@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,10 +20,13 @@ import model.Comment;
 import model.enums.ArticleStatus;
 import model.enums.CommentStatus;
 import repository.implementation.ArticleRepositoryImpl;
+import repository.implementation.AuthorRepositoryImpl;
 import repository.implementation.CommentRepositoryImpl;
 import repository.interfaces.ArticleRepository;
+import repository.interfaces.AuthorRepository;
 import repository.interfaces.CommentRepository;
 import service.ArticleService;
+import service.AuthorService;
 import service.CommentService;
 
 public class ArticlePageServlet extends HttpServlet {
@@ -30,7 +34,9 @@ public class ArticlePageServlet extends HttpServlet {
 
     private ArticleRepository articleRepository = new ArticleRepositoryImpl();
     private CommentRepository commentRepository = new CommentRepositoryImpl();
-    
+    private AuthorRepository authorRepository = new AuthorRepositoryImpl();
+
+    private AuthorService authorService = new AuthorService(authorRepository);
     private ArticleService articleService = new ArticleService(articleRepository);
     private CommentService commentService = new CommentService(commentRepository);
 
@@ -63,17 +69,23 @@ public class ArticlePageServlet extends HttpServlet {
             }
 
             Article article = articleService.getArticleById(articleId).orElseGet(null);
-            
-            if(article == null) {
-            	errorPage(req, resp);
+
+            if (article == null) {
+                errorPage(req, resp);
                 return;
             }
-            
+
             List<Comment> approvedComments = commentService.getAllComments(articleId, pageNumber,
                     CommentStatus.APPROVED);
 
+            Author author = authorService.getAuthorById(15L);
+
+            logger.info("Logged user : " + author);
+            logger.info("Approved comments : " + approvedComments);
+
             int pendingCommentsCount = commentService.pendingCommentsCount(articleId);
-                        
+
+            req.setAttribute("logged_user", author);
             req.setAttribute("article", article);
             req.setAttribute("approvedComments", approvedComments);
             req.setAttribute("articleId", articleId);
@@ -127,13 +139,13 @@ public class ArticlePageServlet extends HttpServlet {
 
                 commentService.deleteComment(commentId);
                 break;
-                
+
             case "update_article":
                 updateArticle(req, resp, articleId);
                 break;
 
             case "delete_article":
-        		articleService.deleteArticle(articleId);
+                articleService.deleteArticle(articleId);
                 resp.sendRedirect("articles");
                 return;
             default:
@@ -147,22 +159,20 @@ public class ArticlePageServlet extends HttpServlet {
         RequestDispatcher dispatcher = req.getRequestDispatcher("/views/404.jsp");
         dispatcher.forward(req, resp);
     }
-    
+
     private void updateArticle(HttpServletRequest request, HttpServletResponse response, long articleId)
-			throws ServletException, IOException {
-    	
-    	
-    	
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-		 
+            throws ServletException, IOException {
+
+        String title = request.getParameter("title");
+        String content = request.getParameter("content");
+
         Article article = articleService.getArticleById(articleId).orElseGet(null);
 
-		article.setTitle(title);
-		article.setContent(content);
-		article.setArticleStatus(ArticleStatus.DRAFT);	 
-		
-		articleService.updateArticle(article);
+        article.setTitle(title);
+        article.setContent(content);
+        article.setArticleStatus(ArticleStatus.DRAFT);
 
-	}
+        articleService.updateArticle(article);
+
+    }
 }

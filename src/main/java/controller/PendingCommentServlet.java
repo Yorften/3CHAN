@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -13,15 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import model.Article;
-import model.Author;
 import model.Comment;
 import model.enums.CommentStatus;
-import repository.implementation.ArticleRepositoryImpl;
 import repository.implementation.CommentRepositoryImpl;
-import repository.interfaces.ArticleRepository;
 import repository.interfaces.CommentRepository;
-import service.ArticleService;
 import service.CommentService;
 
 public class PendingCommentServlet extends HttpServlet {
